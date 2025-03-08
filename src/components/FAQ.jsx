@@ -29,21 +29,23 @@ const FAQ = () => {
   const [hidden, setHidden] = useState(false);
   const [Cindex, setIndex] = useState(null);
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState({ text: '', email: '' });
   const [status, setStatus] = useState({ text: '', type: '' });
 
   const handleChange = (e) => {
-    setMessage(e.target.value);
+    setMessage({ ...message, [e.target.name]: e.target.value });
   };
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  const askDoubt = async (message) => {
+  const askDoubt = async (e) => {
+    e.preventDefault();
+    console.log(message);
     try {
       const response = await sendDoubt(message);
       if (response == 'OK') {
         await delay(500);
-        setMessage('');
+        setMessage({ text: '', email: '' });
         setStatus({ text: 'Question Send', type: 'success' });
         setTimeout(() => {
           setStatus({ text: '', type: '' });
@@ -118,19 +120,26 @@ const FAQ = () => {
               ))}
             </div>
           </div>
-          <form onSubmit={() => askDoubt(message)}>
+          <form onSubmit={askDoubt}>
             <div className="mt-4 md:mt-8 p-4 md:p-8">
               <textarea
-                placeholder="Ask us what you want to know with your email-Id"
-                value={message}
+                placeholder="Ask your query"
+                name="text"
+                value={message.text}
                 className="border-2 border-black text-[#11120499] rounded-md w-full h-32 resize-none p-3"
                 onChange={handleChange}
                 required
               ></textarea>
               <div className="flex flex-row justify-between items-center space-x-2 p-2 mb-20">
-                <p className="text-[#11120499] text-xs sm:text-sm">
-                  We will try answer your question via email within 48 hours
-                </p>
+                <input
+                  placeholder="Enter your email"
+                  className="w-[150px] border-2 border-black rounded-lg p-1 text-sm"
+                  type="email"
+                  required
+                  name="email"
+                  value={message.email}
+                  onChange={handleChange}
+                ></input>
                 <button
                   className="text-xs sm:text-sm md:text-base p-2 md:p-4 bg-[#D45D01] rounded-2xl cursor-pointer hover:text-white duration-300"
                   type="sumbit"

@@ -9,6 +9,12 @@ export default function Navbar({ hide, setHide }) {
   const [animate, setAnimate] = useState(false);
   const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
+  const navLink = [
+    { title: 'About', ref: '#' },
+    { title: 'Services', ref: '#services' },
+    { title: 'Blogs', ref: '#blog' },
+    { title: 'FAQ', ref: '#faq' },
+  ];
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     if (latest > 0) {
@@ -33,7 +39,7 @@ export default function Navbar({ hide, setHide }) {
   return (
     <div className="text-white">
       {/* Desktop View */}
-      <nav className="pl-4 pr-4 flex justify-between items-center">
+      <nav className="pt-4 pl-4 pr-4 flex justify-between items-center">
         {/* Logo */}
         <div>
           <div style={{ display: hidden ? 'none' : 'block' }}>
@@ -62,12 +68,7 @@ export default function Navbar({ hide, setHide }) {
         <div className="md:p-4 flex items-center space-x-8">
           {/* Desktop Links */}
           <div className="hidden md:flex space-x-4">
-            {[
-              { title: 'About', ref: '#' },
-              { title: 'Services', ref: '#services' },
-              { title: 'Blogs', ref: '#blog' },
-              { title: 'FAQ', ref: '#faq' },
-            ].map((item, index) => (
+            {navLink.map((item, index) => (
               <a
                 key={index}
                 href={item.ref}
@@ -100,14 +101,14 @@ export default function Navbar({ hide, setHide }) {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden absolute right-0 bg-black opacity-100 text-white p-5 z-30 w-[30%] flex flex-col items-center space-y-10">
-          {['Process', 'Services', 'Blogs', 'FAQ'].map((item) => (
+          {navLink.map((item) => (
             <a
               key={item}
-              href="#"
+              href={item.ref}
               className="text-lg hover:text-[#D45D01] transition duration-300"
               onClick={() => setIsOpen(false)}
             >
-              {item}
+              {item.title}
             </a>
           ))}
         </div>

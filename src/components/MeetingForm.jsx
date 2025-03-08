@@ -91,8 +91,8 @@ const MeetingForm = ({ hide, setHide }) => {
             <p className="text-center text-white text-base sm:text-lg md:text-xl">
               Fill the form
             </p>
-            <div className="grid grid-cols-2 gap-1 md:gap-2">
-              <div className="p-2 md:p-4 space-y-2 md:space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-2">
+              <div className="order-2 md:order-1 p-2 md:p-4 space-y-2 md:space-y-4">
                 <h1 className="text-lg sm:text-xl md:text-2xl font-bold">
                   <span className="text-[#D45401]">LUPIX</span> | DIGITAL
                   MARKETING AGENCY
@@ -110,7 +110,7 @@ const MeetingForm = ({ hide, setHide }) => {
                     <span>+91 8700225266</span>
                   </p>
                   <hr className="text-white w-3/4"></hr>
-                  <div className="space-y-4 md:space-x-8 text-sm md:text-base">
+                  <div className="space-y-4 space-x-8 text-sm md:text-base">
                     <a
                       href="https://www.instagram.com/lupixhq/"
                       target="_blank"
@@ -135,7 +135,10 @@ const MeetingForm = ({ hide, setHide }) => {
                   </div>
                 </div>
               </div>
-              <form onSubmit={onSubmit}>
+              <form
+                onSubmit={onSubmit}
+                className="order-1 md:order-2"
+              >
                 <div className="p-2 md:p-4 space-y-4 md:space-y-8">
                   <div className="flex flex-col gap-2">
                     <label
@@ -223,7 +226,7 @@ const MeetingForm = ({ hide, setHide }) => {
                       autoComplete="off"
                     />
                   </div>
-                  <div className="flex justify-end">
+                  <div className="mt-5 mb-5 sm:mb-0 flex justify-start md:justify-end">
                     <button
                       className="p-2 text-base md:text-lg bg-[#D45401] rounded-xl cursor-pointer hover:text-black"
                       type="sumbit"

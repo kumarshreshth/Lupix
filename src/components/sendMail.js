@@ -27,7 +27,8 @@ export async function sendMail(data) {
 
 export async function sendDoubt(message) {
   const templateParam = {
-    message: message,
+    message: message.text,
+    email: message.email,
   };
   try {
     const response = await emailjs.send(
