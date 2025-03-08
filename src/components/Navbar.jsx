@@ -38,9 +38,7 @@ export default function Navbar({ hide, setHide }) {
 
   return (
     <div className="text-white">
-      {/* Desktop View */}
       <nav className="pt-4 pl-4 pr-4 flex justify-between items-center">
-        {/* Logo */}
         <div>
           <div style={{ display: hidden ? 'none' : 'block' }}>
             <img
@@ -64,9 +62,7 @@ export default function Navbar({ hide, setHide }) {
           </div>
         </div>
 
-        {/* Navigation Links + Buttons */}
         <div className="md:p-4 flex items-center space-x-8">
-          {/* Desktop Links */}
           <div className="hidden md:flex space-x-4">
             {navLink.map((item, index) => (
               <a
@@ -79,7 +75,6 @@ export default function Navbar({ hide, setHide }) {
             ))}
           </div>
 
-          {/* Book a Meeting Button (Desktop Only) */}
           <button
             className="hidden md:block p-2 bg-[#D45D01] rounded-xl text-xl text-black hover:text-white transition duration-300 cursor-pointer"
             type="button"
@@ -88,9 +83,8 @@ export default function Navbar({ hide, setHide }) {
             Book a Meeting
           </button>
 
-          {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-[#D45D01] p-2 text-lg cursor-pointer"
+            className="md:hidden text-white p-2 text-lg cursor-pointer hover:text-[#D45401]"
             onClick={() => setIsOpen(!isOpen)}
           >
             <i className="fas fa-bars"></i>
@@ -98,12 +92,11 @@ export default function Navbar({ hide, setHide }) {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden absolute right-0 bg-black opacity-100 text-white p-5 z-30 w-[30%] flex flex-col items-center space-y-10">
-          {navLink.map((item) => (
+        <div className="md:hidden absolute top-12 right-0 bg-black opacity-100 text-white p-5 z-30 w-[30%] flex flex-col items-center space-y-10 rounded-2xl">
+          {navLink.map((item, index) => (
             <a
-              key={item}
+              key={index}
               href={item.ref}
               className="text-lg hover:text-[#D45D01] transition duration-300"
               onClick={() => setIsOpen(false)}

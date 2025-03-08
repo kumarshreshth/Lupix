@@ -73,7 +73,7 @@ const MeetingForm = ({ hide, setHide }) => {
         </p>
       )}
       <div
-        className={`h-full w-full fixed top-0 left-0 flex justify-center z-30 ${
+        className={`h-screen w-full fixed top-0 left-0 flex justify-center z-30 ${
           hide ? 'hidden' : ''
         }`}
       >

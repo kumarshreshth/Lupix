@@ -16,7 +16,7 @@ const Footer = () => {
       </div>
 
       <div className="relative z-10">
-        <div className="mt-6 md:mt-10 md:ml-12 lg:ml-10 lg:mt-20 xl:ml-20 flex place-items-start gap-1 md:gap-4">
+        <div className="mt-8 md:ml-10 md:mt-10 lg:ml-18 lg:mt-18 xl:mt-20 xl:ml-20 flex gap-1 md:gap-4">
           <div className="flex flex-col items-center">
             <div>
               <img
