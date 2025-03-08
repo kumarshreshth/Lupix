@@ -22,10 +22,10 @@ const Footer = () => {
               <img
                 src={logo}
                 alt="Lupix"
-                className="w-[100px] md:w-[150px] lg:w-[200px]"
+                className="w-[80px] sm:w-[100px] md:w-[120px] lg:w-[160px] xl:w-[180px]"
               />
             </div>
-            <div className="flex items-center text-[20px] md:text-[38px] font-extrabold">
+            <div className="flex items-center text-[20px] md:text-[28px] lg:text-[32px] xl:text-[38px] font-extrabold">
               <p className="text-[#D45401]">L</p>
               <p className="text-white">UPIX</p>
             </div>

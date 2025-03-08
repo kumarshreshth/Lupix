@@ -44,7 +44,7 @@ export default function Navbar({ hide, setHide }) {
             <img
               src={logo}
               alt="Lupix"
-              className="w-18 h-16"
+              className="w-12 h-10 sm:w-14 sm:h-12 lg:w-16 lg:h-14"
               id="logo"
             />
           </div>
@@ -84,7 +84,7 @@ export default function Navbar({ hide, setHide }) {
           </button>
 
           <button
-            className="md:hidden text-white p-2 text-lg cursor-pointer hover:text-[#D45401]"
+            className="md:hidden text-white p-2 text-lg cursor-pointer"
             onClick={() => setIsOpen(!isOpen)}
           >
             <i className="fas fa-bars"></i>
@@ -93,7 +93,7 @@ export default function Navbar({ hide, setHide }) {
       </nav>
 
       {isOpen && (
-        <div className="md:hidden absolute top-12 right-0 bg-black opacity-100 text-white p-5 z-30 w-[30%] flex flex-col items-center space-y-10 rounded-2xl">
+        <div className="md:hidden absolute right-0 bg-black opacity-100 text-white p-5 z-30 w-[30%] flex flex-col items-center space-y-10 rounded-xl">
           {navLink.map((item, index) => (
             <a
               key={index}
