@@ -12,10 +12,7 @@ const InfiniteScroll = () => {
   ];
 
   return (
-    <div
-      className="mt-8 mb-8 p-4 max-w-screen overflow-hidden gradient mx-auto"
-      id="services"
-    >
+    <div className="mt-8 mb-8 p-4 max-w-screen overflow-hidden gradient mx-auto">
       <div className="flex relative">
         <motion.div
           initial={{ x: '0%' }}

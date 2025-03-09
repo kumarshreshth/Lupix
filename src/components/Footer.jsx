@@ -87,12 +87,12 @@ const Footer = () => {
             >
               Services
             </a>
-            <a
+            {/* <a
               className="text-xs md:text-sm cursor-pointer hover:text-[#D45401] transition-opacity duration-500"
               href="#"
             >
               Blogs
-            </a>
+            </a> */}
             <a
               className="text-xs md:text-sm cursor-pointer hover:text-[#D45401] transition-opacity duration-500"
               href="#faq"
@@ -100,7 +100,7 @@ const Footer = () => {
               FAQ
             </a>
           </div>
-          <div className="text-white text-xs md:text-sm">
+          <div className="text-white text-xs">
             <p>© Copyright 2025 LUPIX.DIGITAL.</p>
             <p>All Right Reserved, All Wrong Reversed.</p>
           </div>

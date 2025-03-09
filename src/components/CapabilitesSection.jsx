@@ -68,7 +68,7 @@ const CapabilitiesSection = ({ hide, setHide }) => {
       {/* Section Title */}
       <div
         className="text-center"
-        id="capabilities"
+        id="services"
       >
         <p className="text-[#D45D01] text-base sm:text-lg md:text-xl">
           OUR CAPABILITIES
@@ -83,10 +83,10 @@ const CapabilitiesSection = ({ hide, setHide }) => {
         {capabilities.map((capability, index) => (
           <div
             key={index}
-            className={` bg-[#D45401] text-white h-[310px] lg:h-[415px] w-auto p-2  cursor-pointer transition-opacity duration-700 rounded-2xl ${
+            className={`text-white h-[310px] lg:h-[415px] w-auto p-2  cursor-pointer transition-opacity duration-700 rounded-2xl ${
               hoveredIndex === index
-                ? 'lg:scale-105'
-                : 'lg:flex lg:justify-center lg:items-center lg:opacity-50'
+                ? 'lg:scale-105 bg-[#D45401]'
+                : 'lg:flex lg:justify-center lg:items-center bg-[#D45401]/50'
             }`}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
@@ -102,16 +102,16 @@ const CapabilitiesSection = ({ hide, setHide }) => {
               <p className={`mt-1 text-gray-200 text-xs xl:text-sm`}>
                 {capability.description}
               </p>
-              <ul className={`mt-1 list-none p-1`}>
+              <ol className={`mt-1 list-inside list-disc`}>
                 {capability.items.map((item, index) => (
                   <li
                     key={index}
-                    className={`text-gray-200 text-xs xl:text-sm p-1 font-extrabold underline`}
+                    className={`text-gray-200 text-xs xl:text-sm p-1 font-extrabold`}
                   >
                     {item}
                   </li>
                 ))}
-              </ul>
+              </ol>
             </div>
           </div>
         ))}

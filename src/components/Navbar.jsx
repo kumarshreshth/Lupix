@@ -3,7 +3,15 @@ import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import logo from '../asset/logo.png';
 
 export default function Navbar({ hide, setHide }) {
-  const texts = ['.Tech', '.Web', '.Media', '.Ads', '.Digital', '.'];
+  const texts = [
+    '.Digital',
+    '.Media',
+    '.Tech',
+    '.Production',
+    '.Web',
+    '.Ads',
+    '.',
+  ];
   const [isOpen, setIsOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [animate, setAnimate] = useState(false);
@@ -12,7 +20,7 @@ export default function Navbar({ hide, setHide }) {
   const navLink = [
     { title: 'About', ref: '#' },
     { title: 'Services', ref: '#services' },
-    { title: 'Blogs', ref: '#blog' },
+    //{ title: 'Blogs', ref: '#blog' },
     { title: 'FAQ', ref: '#faq' },
   ];
 
@@ -30,7 +38,7 @@ export default function Navbar({ hide, setHide }) {
       setTimeout(() => {
         setIndex((prevIndex) => (prevIndex + 1) % texts.length);
         setAnimate(true);
-      }, 50);
+      }, 100);
     }, 1500);
 
     return () => clearInterval(interval);

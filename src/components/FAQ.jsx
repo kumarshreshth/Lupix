@@ -71,7 +71,7 @@ const FAQ = () => {
         </p>
       )}
       <div
-        className="bg-white text-black z-10"
+        className="bg-gray-300 text-black z-10"
         id="faq"
       >
         <div className="text-center mt-6 md:mt-10 p-6 md:p-10">

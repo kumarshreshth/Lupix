@@ -9,7 +9,7 @@ const HeadingSection = ({ hide, setHide }) => {
       </div>
 
       <div className="relative z-10">
-        <p className="text-white mt-4 sm:mt-6 md:mt-8 p-2 text-lg sm:text-4xl md:text-7xl max-w-[90%] sm:max-w-3xl mx-auto">
+        <p className="text-white mt-4 sm:mt-6 md:mt-8 p-2 text-lg sm:text-4xl md:text-7xl max-w-[90%] sm:max-w-3xl mx-auto font-bold">
           Leading The Pack In Digital Solution
         </p>
 
