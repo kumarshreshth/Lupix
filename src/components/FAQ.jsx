@@ -129,6 +129,7 @@ const FAQ = () => {
                 className="border-2 border-black text-[#11120499] rounded-md w-full h-32 resize-none p-3"
                 onChange={handleChange}
                 required
+                autoComplete="false"
               ></textarea>
               <div className="flex flex-row justify-between items-center space-x-2 p-2 mb-18">
                 <input
@@ -136,6 +137,7 @@ const FAQ = () => {
                   className="min-w-[150px] w-1/3 border-2 border-black rounded-lg p-1 text-sm"
                   type="email"
                   required
+                  autoComplete="off"
                   name="email"
                   value={message.email}
                   onChange={handleChange}
