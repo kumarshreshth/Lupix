@@ -8,15 +8,15 @@ const Footer = () => {
   };
   return (
     <div className="relative p-4 mt-2">
-      <div className="absolute w-full flex justify-center items-center z-0">
-        <div className="text-[100px] md:text-[150px] lg:text-[220px] xl:text-[250px] opacity-20 font-extrabold flex">
+      <div className="absolute w-full z-0">
+        <div className="text-[100px] md:text-[145px] lg:text-[215px] xl:text-[245px] opacity-20 font-extrabold flex justify-center items-center">
           <p className="text-[#D45401]">L</p>
           <p className="text-white">UPIX</p>
         </div>
       </div>
 
       <div className="relative z-10">
-        <div className="mt-8 md:ml-10 md:mt-10 lg:ml-18 lg:mt-18 xl:mt-20 xl:ml-20 flex gap-1 md:gap-4">
+        <div className="mt-8 md:ml-10 md:mt-12 lg:ml-18 lg:mt-20 xl:mt-22 xl:ml-20 flex gap-1 md:gap-4">
           <div className="flex flex-col items-center">
             <div>
               <img

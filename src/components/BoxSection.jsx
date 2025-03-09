@@ -22,7 +22,7 @@ const BoxSection = () => {
     },
     {
       icon: 'fa-solid fa-rocket',
-      title: 'Lauch',
+      title: 'Launch',
       description:
         'We execute with precision, ensuring a seamless and impactful rollout.',
     },
@@ -48,7 +48,7 @@ const BoxSection = () => {
               <h5 className="text-white mt-4 md:mt-6 text-sm sm:text-base md:text-lg">
                 {item.title}
               </h5>
-              <p className="text-gray-500 mt-4 md:mt-6 text-xs sm:text-sm md:text-base text-center">
+              <p className="text-gray-500 mt-4 md:mt-6 text-xs sm:text-sm md:text-base text-center sm:text-left">
                 {item.description}
               </p>
             </li>

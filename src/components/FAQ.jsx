@@ -130,10 +130,10 @@ const FAQ = () => {
                 onChange={handleChange}
                 required
               ></textarea>
-              <div className="flex flex-row justify-between items-center space-x-2 p-2 mb-20">
+              <div className="flex flex-row justify-between items-center space-x-2 p-2 mb-18">
                 <input
                   placeholder="Enter your email"
-                  className="w-[150px] border-2 border-black rounded-lg p-1 text-sm"
+                  className="min-w-[150px] w-1/3 border-2 border-black rounded-lg p-1 text-sm"
                   type="email"
                   required
                   name="email"
@@ -141,7 +141,7 @@ const FAQ = () => {
                   onChange={handleChange}
                 ></input>
                 <button
-                  className="text-xs sm:text-sm md:text-base p-2 md:p-4 bg-[#D45D01] rounded-2xl cursor-pointer hover:text-white duration-300"
+                  className="text-white text-xs sm:text-sm md:text-base p-3 bg-[#D45401] rounded-xl cursor-pointer hover:text-black duration-300"
                   type="sumbit"
                 >
                   Send

@@ -3,7 +3,7 @@ import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import logo from '../asset/logo.png';
 
 export default function Navbar({ hide, setHide }) {
-  const texts = ['.tech', '.web', '.media', '.ads', '.digital', '.'];
+  const texts = ['.Tech', '.Web', '.Media', '.Ads', '.Digital', '.'];
   const [isOpen, setIsOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [animate, setAnimate] = useState(false);
@@ -48,9 +48,9 @@ export default function Navbar({ hide, setHide }) {
               id="logo"
             />
           </div>
-          <div className="flex items-center">
+          <div className="flex items-start">
             <div className="text-sm sm:text-base md:text-xl">Lupix</div>
-            <div className="relative flex items-center">
+            <div className="relative flex">
               <div
                 className={`absolute text-sm sm:text-base md:text-xl text-[#D45401] ${
                   animate ? 'animate-scrollUp' : ''
