@@ -86,7 +86,7 @@ const CapabilitiesSection = ({ hide, setHide }) => {
             className={`text-white h-[310px] lg:h-[415px] w-auto p-2  cursor-pointer transition-opacity duration-700 rounded-2xl ${
               hoveredIndex === index
                 ? 'lg:scale-105 bg-[#D45401]'
-                : 'lg:flex lg:justify-center lg:items-center bg-[#D45401]/50'
+                : 'lg:flex lg:justify-center lg:items-center bg-[#D45401] lg:bg-[#D45401]/50'
             }`}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
