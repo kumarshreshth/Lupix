@@ -31,7 +31,7 @@
       .animate-text {
         margin: 0;
         padding: 0;
-        animation: scrollUp 15s infinite ease-out;
+        animation: scrollUp 14s infinite ease-in;
       }
 
       .words-box ul li {
@@ -67,28 +67,36 @@
       }
 
       @keyframes scrollUp {
-        16.67% {
-          transform: translateY(-24px);
+        0%{
+          transform:translateY(18px);
         }
-        33.34% {
-          transform: translateY(-48px);
+        12.5%{
+          transform:translateY(0px)
         }
-        50.01% {
-          transform: translateY(-72px);
+        25%{
+          transform:translateY(-24px);
         }
-        66.68% {
-          transform: translateY(-96px);
+        37.5%{
+          transform:translateY(-48px);
         }
-        83.35% {
-          transform: translateY(-120px);
+        50%{
+          transform:translateY(-72px);
         }
-        100% {
-          transform: translateY(-144px);
+        62.5%{
+          transform:translateY(-96px);
+        }
+        75%{
+          transform:translateY(-120px);
+        }
+        87.5%{
+          transform:translateY(-144px);
+        }
+        100%{
+          transform:translateY(-164px);
         }
       }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js"></script>
-    <script src="config.js"></script>
     <script
       type="module"
       src="script.js"
