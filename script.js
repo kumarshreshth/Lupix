@@ -1,0 +1,252 @@
+import config from './config.js';
+
+async function sendDoubt(query, emailId) {
+  const templateParam = {
+    message: query,
+    email: emailId,
+  };
+  try {
+    const response = await emailjs.send(
+      config.serviceId,
+      config.templateIdQuery,
+      templateParam,
+      config.publicKey
+    );
+    return response.text;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function sendMail(name, phoneNumber, emailId, description) {
+  try {
+    const templateParam = {
+      name: name,
+      email: emailId,
+      phoneNumber: phoneNumber,
+      description: description,
+    };
+
+    const response = await emailjs.send(
+      config.serviceId,
+      config.templateIdForm,
+      templateParam,
+      config.publicKey
+    );
+    console.log(response.text);
+    return response.text;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+document.querySelectorAll('.booking').forEach((button) => {
+  button.addEventListener('click', () => {
+    document.getElementById('meetingForm').classList.remove('hidden');
+    document.getElementById('meetingForm').classList.add('flex');
+  });
+});
+
+document
+  .getElementById('meetingForm')
+  .addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const number = document.getElementById('phoneNumber').value;
+    const emailId = document.getElementById('emailId').value;
+    const description = document.getElementById('description').value;
+
+    try {
+      const response = await sendMail(name, number, emailId, description);
+      if (response == 'OK') {
+        const messageBlock = document.createElement('div');
+        messageBlock.classList.add(
+          'fixed',
+          'top-5',
+          'right-5',
+          'bg-black',
+          'z-30',
+          'p-3',
+          'rounded-xl',
+          'border-2',
+          'border-white',
+          'opacity-80'
+        );
+        const messageElement = document.createElement('p');
+        messageElement.innerText = 'Booking Mail Send';
+        messageElement.classList.add('text-green-400');
+        messageBlock.appendChild(messageElement);
+        document.body.appendChild(messageBlock);
+        document.getElementById('name').value = '';
+        document.getElementById('phoneNumber').value = '';
+        document.getElementById('emailId').value = '';
+        document.getElementById('description').value = '';
+        setTimeout(() => {
+          messageBlock.remove();
+        }, 3000);
+      }
+    } catch (error) {
+      const messageBlock = document.createElement('div');
+      messageBlock.classList.add(
+        'fixed',
+        'top-5',
+        'right-5',
+        'bg-black',
+        'z-30',
+        'p-3',
+        'rounded-xl',
+        'border-2',
+        'border-white',
+        'opacity-80'
+      );
+      const messageElement = document.createElement('p');
+      messageElement.innerText = 'Error occured';
+      messageElement.classList.add('text-red-700');
+      messageBlock.appendChild(messageElement);
+      document.body.appendChild(messageBlock);
+      setTimeout(() => {
+        messageBlock.remove();
+      }, 3000);
+    }
+  });
+
+document
+  .getElementById('queryForm')
+  .addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const query = document.getElementById('query').value;
+    const emailId = document.getElementById('queryEmail').value;
+    try {
+      const response = await sendDoubt(query, emailId);
+      if (response === 'OK') {
+        const messageBlock = document.createElement('div');
+        messageBlock.classList.add(
+          'fixed',
+          'top-5',
+          'right-5',
+          'bg-black',
+          'z-30',
+          'p-3',
+          'rounded-xl',
+          'border-2',
+          'border-white',
+          'opacity-80'
+        );
+        const messageElement = document.createElement('p');
+        messageElement.innerText = 'Query Send';
+        messageElement.classList.add('text-green-400');
+        messageBlock.appendChild(messageElement);
+        document.body.appendChild(messageBlock);
+        document.getElementById('query').value = '';
+        document.getElementById('queryEmail').value = '';
+        setTimeout(() => {
+          messageBlock.remove();
+        }, 3000);
+      }
+    } catch (error) {
+      const messageBlock = document.createElement('div');
+      messageBlock.classList.add(
+        'fixed',
+        'top-5',
+        'right-5',
+        'bg-black',
+        'z-30',
+        'p-3',
+        'rounded-xl',
+        'border-2',
+        'border-white',
+        'opacity-80'
+      );
+      const messageElement = document.createElement('p');
+      messageElement.innerText = 'Error occured';
+      messageElement.classList.add('text-red-700');
+      messageBlock.appendChild(messageElement);
+      document.body.appendChild(messageBlock);
+      setTimeout(() => {
+        messageBlock.remove();
+      }, 3000);
+    }
+  });
+
+document.querySelectorAll('.capabilites').forEach((block) => {
+  block.addEventListener('mouseenter', () => {
+    block.classList.remove(
+      'lg:flex',
+      'lg:justify-center',
+      'lg:items-center',
+      'bg-[#D45401]',
+      'lg:bg-[#D45401]/50'
+    );
+    block.classList.add('lg:bg-[#D45401]', 'lg:scale-105');
+    block.children[1].classList.remove('lg:hidden');
+  });
+  block.addEventListener('mouseleave', () => {
+    block.classList.remove('lg:bg-[#D45401]', 'lg:scale-105');
+    block.classList.add(
+      'lg:flex',
+      'lg:justify-center',
+      'lg:items-center',
+      'bg-[#D45401]',
+      'lg:bg-[#D45401]/50'
+    );
+    block.children[1].classList.add('lg:hidden');
+  });
+});
+
+document.querySelectorAll('.question').forEach((block) => {
+  block.addEventListener('click', () => {
+    block.children[0].children[1].classList.toggle('fa-angle-down');
+    block.children[0].children[1].classList.toggle('fa-angle-up');
+    block.children[1].classList.toggle('hidden');
+  });
+});
+
+document.getElementById('closeButton').addEventListener('click', () => {
+  document.getElementById('meetingForm').classList.remove('flex');
+  document.getElementById('meetingForm').classList.add('hidden');
+});
+
+document.getElementById('mobNav-button').addEventListener('click', () => {
+  const element = document.getElementById('mobNav-list');
+  if (element.classList.contains('hidden')) {
+    element.classList.remove('hidden');
+    element.classList.add('flex');
+    element.classList.add('flex-col');
+  } else {
+    document.getElementById('mobNav-list').classList.add('hidden');
+    document.getElementById('mobNav-list').classList.remove('flex');
+    document.getElementById('mobNav-list').classList.remove('flex-col');
+  }
+});
+
+document.querySelectorAll('.mailLink').forEach((link) => {
+  link.addEventListener('click', () => {
+    window.open(
+      `https://mail.google.com/mail/?view=cm&to=lupix.marketing@gmail.com`
+    );
+  });
+});
+
+window.addEventListener('load', () => {
+  window.history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+});
+
+window.addEventListener('scroll', () => {
+  const logo = document.getElementById('logo');
+  const element = document.getElementById('mobNav-list');
+  if (window.scrollY > 0) {
+    logo.classList.add('hidden');
+    element.classList.remove('top-18');
+    element.classList.add('top-14');
+  } else {
+    if (logo.classList.contains('hidden')) {
+      logo.classList.remove('hidden');
+      element.classList.remove('top-14');
+      element.classList.add('top-18');
+    }
+  }
+});
