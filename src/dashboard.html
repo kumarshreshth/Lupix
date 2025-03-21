@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Lupix</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./asset/favicon.ico"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css"
+      rel="stylesheet"
+    />
+    <link
+      href="./output.css"
+      rel="stylesheet"
+    />
+    <style>
+      .words-box {
+        height: 24px;
+        margin: auto;
+        overflow: hidden;
+      }
+
+      .animate-text {
+        margin: 0;
+        padding: 0;
+        animation: scrollUp 14s infinite ease-in;
+      }
+
+      .words-box ul li {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        height: 24px;
+        list-style: none;
+        padding: 4px;
+      }
+
+      @keyframes scrollUp {
+        0% {
+          transform: translateY(18px);
+        }
+        12.5% {
+          transform: translateY(0px);
+        }
+        25% {
+          transform: translateY(-24px);
+        }
+        37.5% {
+          transform: translateY(-48px);
+        }
+        50% {
+          transform: translateY(-72px);
+        }
+        62.5% {
+          transform: translateY(-96px);
+        }
+        75% {
+          transform: translateY(-120px);
+        }
+        87.5% {
+          transform: translateY(-144px);
+        }
+        100% {
+          transform: translateY(-164px);
+        }
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <!-- <script
+      src="./admin.js"
+      type="module"
+      defer
+    ></script> -->
+  </head>
+  <body class="bg-black min-h-screen">
+    <!--Navigation bar-->
+    <div>
+      <nav class="p-4 flex justify-between items-center bg-black">
+        <div>
+          <div id="logo">
+            <img
+              src="./asset/logo.png"
+              alt="Lupix"
+              class="w-12 h-10 sm:w-14 sm:h-12 lg:w-16 lg:h-14"
+              id="logo"
+            />
+          </div>
+          <div class="flex items-center">
+            <span class="text-white text-sm sm:text-base md:text-xl"
+              >Lupix</span
+            >
+            <div class="words-box">
+              <ul class="animate-text">
+                <li class="text-sm sm:text-base md:text-xl text-[#D45401]">
+                  .Digital
+                </li>
+                <li class="text-sm sm:text-base md:text-xl text-[#D45401]">
+                  .Media
+                </li>
+                <li class="text-sm sm:text-base md:text-xl text-[#D45401]">
+                  .Tech
+                </li>
+                <li class="text-sm sm:text-base md:text-xl text-[#D45401]">
+                  .Production
+                </li>
+                <li class="text-sm sm:text-base md:text-xl text-[#D45401]">
+                  .Web
+                </li>
+                <li class="text-sm sm:text-base md:text-xl text-[#D45401]">
+                  .Ads
+                </li>
+                <li class="text-sm sm:text-base md:text-xl text-[#D45401]">
+                  .
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="md:p-4 flex items-center space-x-8">
+          <div class="hidden md:flex space-x-4">
+            <a
+              href="javascript:void(0)"
+              class="text-white text-sm sm:text-base md:text-xl hover:text-[#D45D01] transition duration-500"
+              id="latestBtn"
+              >Lastest Blog</a
+            >
+            <a
+              href="javascript:void(0)"
+              class="text-white text-sm sm:text-base md:text-xl hover:text-[#D45D01] transition duration-500"
+              id="addBtn"
+              >Add Blog</a
+            >
+          </div>
+          <button
+            class="hidden md:block p-2 bg-[#D45D01] rounded-xl text-xl text-white hover:text-black transition duration-500 cursor-pointer"
+            type="button"
+            id="logoutButton"
+          >
+            Logout
+          </button>
+          <button
+            class="md:hidden text-white p-2 text-lg cursor-pointer"
+            id="mobNav-button"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </nav>
+      <!-- Mobile navigation -->
+      <div
+        class="hidden md:hidden absolute right-0 top-18 bg-black z-30 w-[25%] p-5 space-y-10 pageLink"
+        id="mobNav-list"
+      >
+        <a
+          href="javascript:void(0)"
+          class="text-white text-sm sm:text-base"
+          onclick="scrollToSection('about')"
+          >About</a
+        >
+        <a
+          href="javascript:void(0)"
+          class="text-white text-sm sm:text-base"
+          onclick="scrollToSection('services')"
+          >Services</a
+        >
+        <a
+          href="javascript:void(0)"
+          class="text-white text-sm sm:text-base"
+          onclick="scrollToSection('faq')"
+          >FAQ</a
+        >
+      </div>
+    </div>
+
+    <!-- <div
+      class="flex justify-center items-center mt-20"
+      id="latestBlog"
+    >
+      <div class="w-[90%]">
+        <div class="text-white text-4xl font-bold text-center bg-red-500 p-2">
+          Latest Blogs
+        </div>
+        <div
+          class="w-[80%] grid grid-cols-1 space-y-8 mt-10"
+          id="blogList"
+        ></div>
+      </div>
+    </div> -->
+
+    <div
+      class="flex justify-center items-center mt-20"
+      id="addBlog"
+    >
+      <div class="bg-white p-6 rounded-lg h-[90%] w-[90%]">
+        <div
+          id="toolbar"
+          class="flex space-x-y items-center"
+        >
+          <select class="ql-header">
+            <option
+              value="0"
+              selected
+            >
+              Normal
+            </option>
+            <option value="1">Heading</option>
+            <option value="2">Subheading</option>
+          </select>
+          <button class="ql-bold"></button>
+          <button class="ql-italic"></button>
+          <button
+            class="ql-list"
+            value="ordered"
+          ></button>
+          <button
+            class="ql-list"
+            value="bullet"
+          ></button>
+          <button class="ql-link"></button>
+          <button class="ql-divider">—</button>
+        </div>
+        <div id="editor">
+          <p><br>Enter your title here...</p>  <!-- Title Placeholder -->
+          <p><br>Start writing your content...</p>
+        </div>
+      </div>
+    </div>
+    <script>
+      const quill = new Quill('#editor', {
+        theme: 'snow',
+        modules: { toolbar: '#toolbar' },
+        placeholder: 'Title',
+      });
+    </script>
+  </body>
+</html>

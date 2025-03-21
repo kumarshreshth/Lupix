@@ -31,7 +31,7 @@
       .animate-text {
         margin: 0;
         padding: 0;
-        animation: scrollUp 14s infinite ease-in;
+        animation: scrollUp 14s infinite ease-in-out;
       }
 
       .words-box ul li {
@@ -67,39 +67,52 @@
       }
 
       @keyframes scrollUp {
-        0%{
-          transform:translateY(18px);
+        0% {
+          transform: translateY(18px);
         }
-        12.5%{
-          transform:translateY(0px)
+        12.5% {
+          transform: translateY(0px);
         }
-        25%{
-          transform:translateY(-24px);
+        25% {
+          transform: translateY(-24px);
         }
-        37.5%{
-          transform:translateY(-48px);
+        37.5% {
+          transform: translateY(-48px);
         }
-        50%{
-          transform:translateY(-72px);
+        50% {
+          transform: translateY(-72px);
         }
-        62.5%{
-          transform:translateY(-96px);
+        62.5% {
+          transform: translateY(-96px);
         }
-        75%{
-          transform:translateY(-120px);
+        75% {
+          transform: translateY(-120px);
         }
-        87.5%{
-          transform:translateY(-144px);
+        87.5% {
+          transform: translateY(-144px);
         }
-        100%{
-          transform:translateY(-164px);
+        100% {
+          transform: translateY(-164px);
         }
       }
     </style>
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-53W5JK53');
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js"></script>
     <script
       type="module"
-      src="script.js"
+      src="./src/script.js"
       defer
     ></script>
   </head>
@@ -632,6 +645,25 @@
       </div>
     </div>
 
+    <!--News Blog-->
+    <!-- <div class="mt-12 text-center space-y-8">
+      <div class="space-y-8">
+        <p class="text-4xl font-bold text-white">BLOGS</p>
+        <p class="text-2xl text-gray-600">Latest Blogs</p>
+      </div>
+      <div
+        id="blogs grid grid-cols-1 md:grid-cols-2 space-x-4 md:space-x-10"
+      ></div>
+      <div>
+        <button
+          class="mt-10 p-4 bg-[#D45D01] rounded-xl text-xs sm:text-base md:text-lg text-white hover:text-black transition duration-500 cursor-pointer"
+          type="button"
+          id="loginButton"
+        >
+          Add Blogs
+        </button>
+      </div>
+    </div> -->
     <!--Bottom-->
     <div class="relative m-0">
       <!--FAQ-->
@@ -919,166 +951,168 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <!--form-->
-      <div
-        class="h-screen w-full fixed top-0 left-0 justify-center z-30 hidden"
-        id="meetingForm"
-      >
-        <div class="bg-black/90 text-white p-2 sm:p-8 md:p-10 w-full relative">
-          <button
-            class="absolute top-5 right-5"
-            id="closeButton"
+    <!--form-->
+    <div
+      class="h-screen w-full fixed top-0 left-0 justify-center z-30 hidden"
+      id="meetingForm"
+    >
+      <div class="bg-black/90 text-white p-2 sm:p-8 md:p-10 w-full relative">
+        <button
+          class="absolute top-5 right-5"
+          id="closeButton"
+        >
+          <i
+            class="far fa-window-close text-white font-bold cursor-pointer hover:text-[#D45401] text-xl"
+          ></i>
+        </button>
+        <div class="space-y-4 md:space-y-8">
+          <h1
+            class="text-center text-[#D45401] font-extrabold text-xl sm:text-2xl md:text-4xl"
           >
-            <i
-              class="far fa-window-close text-white font-bold cursor-pointer hover:text-[#D45401] text-xl"
-            ></i>
-          </button>
-          <div class="space-y-4 md:space-y-8">
-            <h1
-              class="text-center text-[#D45401] font-extrabold text-xl sm:text-2xl md:text-4xl"
-            >
-              Book Meeting
-            </h1>
-            <p class="text-center text-white text-base sm:text-lg md:text-xl">
-              Fill the form
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-2">
-              <div class="order-2 md:order-1 p-2 md:p-4 space-y-2 md:space-y-4">
-                <h1 class="text-lg sm:text-xl md:text-2xl font-bold">
-                  <span class="text-[#D45401]">LUPIX</span> | DIGITAL MARKETING
-                  AGENCY
-                </h1>
-                <div class="space-y-4 md:space-y-8">
-                  <p class="text-sm sm:text-base md:text-lg">
-                    Contact Information
-                  </p>
-                  <p class="text-sm md:text-base space-x-2">
-                    <i class="fa-solid fa-envelope"> </i>
-                    <span class="cursor-pointer mailLink"
-                      >lupix.marketing@gmail.com</span
-                    >
-                  </p>
-                  <p class="text-sm md:text-base space-x-2">
-                    <i class="fa-solid fa-phone"> </i>
-                    <span>+91 8700225266</span>
-                  </p>
-                  <hr class="text-white w-3/4" />
-                  <div class="space-y-4 space-x-8 text-sm md:text-base">
-                    <a
-                      href="https://www.instagram.com/lupixhq/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <i class="fa-brands fa-instagram"></i>
-                    </a>
-                    <a
-                      href="https://www.facebook.com/profile.php?id=61571364940354"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <i class="fa-brands fa-facebook"></i>
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/company/lupix-digital/?viewAsMember=true"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <i class="fa-brands fa-linkedin"></i>
-                    </a>
-                  </div>
+            Book Meeting
+          </h1>
+          <p class="text-center text-white text-base sm:text-lg md:text-xl">
+            Fill the form
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-2">
+            <div class="order-2 md:order-1 p-2 md:p-4 space-y-2 md:space-y-4">
+              <h1 class="text-lg sm:text-xl md:text-2xl font-bold">
+                <span class="text-[#D45401]">LUPIX</span> | DIGITAL MARKETING
+                AGENCY
+              </h1>
+              <div class="space-y-4 md:space-y-8">
+                <p class="text-sm sm:text-base md:text-lg">
+                  Contact Information
+                </p>
+                <p class="text-sm md:text-base space-x-2">
+                  <i class="fa-solid fa-envelope"> </i>
+                  <span class="cursor-pointer mailLink"
+                    >lupix.marketing@gmail.com</span
+                  >
+                </p>
+                <p class="text-sm md:text-base space-x-2">
+                  <i class="fa-solid fa-phone"> </i>
+                  <span>+91 8700225266</span>
+                </p>
+                <hr class="text-white w-3/4" />
+                <div class="space-y-4 space-x-8 text-sm md:text-base">
+                  <a
+                    href="https://www.instagram.com/lupixhq/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i class="fa-brands fa-instagram"></i>
+                  </a>
+                  <a
+                    href="https://www.facebook.com/profile.php?id=61571364940354"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i class="fa-brands fa-facebook"></i>
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/company/lupix-digital/?viewAsMember=true"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i class="fa-brands fa-linkedin"></i>
+                  </a>
                 </div>
               </div>
-              <form
-                class="order-1 md:order-2"
-                id="meetingForm"
-              >
-                <div class="p-2 md:p-4 space-y-4 md:space-y-8">
-                  <div class="flex flex-col gap-2">
-                    <label
-                      for="name"
-                      class="text-sm md:text-base font-bold"
-                    >
-                      NAME
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      placeholder="Enter your name"
-                      class="border border-white p-2 rounded-md text-gray-500"
-                      required
-                      autocomplete="off"
-                    />
-                  </div>
-                  <div class="flex flex-col gap-2">
-                    <label
-                      for="phoneNumber"
-                      class="text-sm md:text-base font-bold"
-                    >
-                      PHONE NUMBER
-                    </label>
-                    <input
-                      type="text"
-                      id="phoneNumber"
-                      name="phoneNumber"
-                      placeholder="Enter your phone number"
-                      class="border border-white p-2 rounded-md text-gray-500"
-                      required
-                      autocomplete="off"
-                    />
-                  </div>
-                  <div class="flex flex-col gap-2">
-                    <label
-                      for="emailId"
-                      class="text-sm md:text-base font-bold"
-                    >
-                      EMAIL
-                    </label>
-                    <input
-                      type="email"
-                      id="emailId"
-                      name="email"
-                      placeholder="Enter your Mail Id"
-                      class="border border-white p-2 rounded-md text-gray-500"
-                      required
-                      autocomplete="off"
-                    />
-                  </div>
-                  <div class="flex flex-col gap-2">
-                    <label
-                      for="description"
-                      class="text-sm md:text-base font-bold"
-                    >
-                      SERVICE REQUEST
-                    </label>
-                    <textarea
-                      type="text"
-                      id="description"
-                      name="description"
-                      placeholder="give short description about the service required"
-                      class="border border-white p-2 rounded-md text-gray-500 resize-none"
-                      required
-                      autocomplete="off"
-                    ></textarea>
-                  </div>
-                  <div
-                    class="mt-5 mb-5 sm:mb-0 flex justify-start md:justify-end"
-                  >
-                    <button
-                      class="p-2 text-base md:text-lg bg-[#D45401] rounded-xl cursor-pointer hover:text-black"
-                      type="sumbit"
-                    >
-                      Send
-                    </button>
-                  </div>
-                </div>
-              </form>
             </div>
+            <form
+              class="order-1 md:order-2"
+              id="meetingForm"
+            >
+              <div class="p-2 md:p-4 space-y-4 md:space-y-8">
+                <div class="flex flex-col gap-2">
+                  <label
+                    for="name"
+                    class="text-sm md:text-base font-bold"
+                  >
+                    NAME
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your name"
+                    class="border border-white p-2 rounded-md text-gray-500"
+                    required
+                    autocomplete="off"
+                  />
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label
+                    for="phoneNumber"
+                    class="text-sm md:text-base font-bold"
+                  >
+                    PHONE NUMBER
+                  </label>
+                  <input
+                    type="text"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder="Enter your phone number"
+                    class="border border-white p-2 rounded-md text-gray-500"
+                    required
+                    autocomplete="off"
+                  />
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label
+                    for="emailId"
+                    class="text-sm md:text-base font-bold"
+                  >
+                    EMAIL
+                  </label>
+                  <input
+                    type="email"
+                    id="emailId"
+                    name="email"
+                    placeholder="Enter your Mail Id"
+                    class="border border-white p-2 rounded-md text-gray-500"
+                    required
+                    autocomplete="off"
+                  />
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label
+                    for="description"
+                    class="text-sm md:text-base font-bold"
+                  >
+                    SERVICE REQUEST
+                  </label>
+                  <textarea
+                    type="text"
+                    id="description"
+                    name="description"
+                    placeholder="give short description about the service required"
+                    class="border border-white p-2 rounded-md text-gray-500 resize-none"
+                    required
+                    autocomplete="off"
+                  ></textarea>
+                </div>
+                <div
+                  class="mt-5 mb-5 sm:mb-0 flex justify-start md:justify-end"
+                >
+                  <button
+                    class="p-2 text-base md:text-lg bg-[#D45401] rounded-xl cursor-pointer hover:text-black"
+                    type="sumbit"
+                  >
+                    Send
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53W5JK53"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <script>
       function scrollToSection(section) {

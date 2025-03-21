@@ -230,6 +230,10 @@ document.querySelectorAll('.mailLink').forEach((link) => {
   });
 });
 
+document.getElementById('loginButton').addEventListener('click', () => {
+  window.open('./src/login.html', '_blank');
+});
+
 window.addEventListener('load', () => {
   window.history.scrollRestoration = 'manual';
   window.scrollTo(0, 0);
