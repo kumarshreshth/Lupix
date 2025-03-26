@@ -10,18 +10,14 @@
     <link
       rel="icon"
       type="image/x-icon"
-      href="./asset/favicon.ico"
+      href="../asset/favicon.ico"
     />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
     <link
-      href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css"
-      rel="stylesheet"
-    />
-    <link
-      href="./output.css"
+      href="../output.css"
       rel="stylesheet"
     />
     <style>
@@ -76,21 +72,20 @@
         }
       }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
-    <!-- <script
-      src="./admin.js"
+    <script
+      src="../js/dashboard.js"
       type="module"
       defer
-    ></script> -->
+    ></script>
   </head>
-  <body class="bg-black min-h-screen">
+  <body class="relative bg-black min-h-screen">
     <!--Navigation bar-->
-    <div>
+    <div class="sticky z-20 top-0">
       <nav class="p-4 flex justify-between items-center bg-black">
         <div>
-          <div id="logo">
+          <div>
             <img
-              src="./asset/logo.png"
+              src="../asset/logo.png"
               alt="Lupix"
               class="w-12 h-10 sm:w-14 sm:h-12 lg:w-16 lg:h-14"
               id="logo"
@@ -131,21 +126,24 @@
           <div class="hidden md:flex space-x-4">
             <a
               href="javascript:void(0)"
-              class="text-white text-sm sm:text-base md:text-xl hover:text-[#D45D01] transition duration-500"
-              id="latestBtn"
+              class="text-white text-sm sm:text-base md:text-xl hover:text-[#D45D01] transition duration-500 latestBtn"
               >Lastest Blog</a
             >
             <a
               href="javascript:void(0)"
               class="text-white text-sm sm:text-base md:text-xl hover:text-[#D45D01] transition duration-500"
-              id="addBtn"
+              id="requested"
+              >Requested Blog</a
+            >
+            <a
+              href="javascript:void(0)"
+              class="text-white text-sm sm:text-base md:text-xl hover:text-[#D45D01] transition duration-500 addBtn"
               >Add Blog</a
             >
           </div>
           <button
-            class="hidden md:block p-2 bg-[#D45D01] rounded-xl text-xl text-white hover:text-black transition duration-500 cursor-pointer"
+            class="hidden md:block p-2 bg-[#D45D01] rounded-xl text-xl text-white hover:text-black transition duration-500 cursor-pointer logoutBtn"
             type="button"
-            id="logoutButton"
           >
             Logout
           </button>
@@ -157,91 +155,39 @@
           </button>
         </div>
       </nav>
-      <!-- Mobile navigation -->
-      <div
-        class="hidden md:hidden absolute right-0 top-18 bg-black z-30 w-[25%] p-5 space-y-10 pageLink"
-        id="mobNav-list"
-      >
-        <a
-          href="javascript:void(0)"
-          class="text-white text-sm sm:text-base"
-          onclick="scrollToSection('about')"
-          >About</a
-        >
-        <a
-          href="javascript:void(0)"
-          class="text-white text-sm sm:text-base"
-          onclick="scrollToSection('services')"
-          >Services</a
-        >
-        <a
-          href="javascript:void(0)"
-          class="text-white text-sm sm:text-base"
-          onclick="scrollToSection('faq')"
-          >FAQ</a
-        >
-      </div>
     </div>
-
-    <!-- <div
-      class="flex justify-center items-center mt-20"
-      id="latestBlog"
-    >
-      <div class="w-[90%]">
-        <div class="text-white text-4xl font-bold text-center bg-red-500 p-2">
-          Latest Blogs
-        </div>
-        <div
-          class="w-[80%] grid grid-cols-1 space-y-8 mt-10"
-          id="blogList"
-        ></div>
-      </div>
-    </div> -->
-
+    <!-- Mobile navigation -->
     <div
-      class="flex justify-center items-center mt-20"
-      id="addBlog"
+      class="hidden md:hidden fixed right-2 top-18 bg-black z-30 w-[25%] p-5 space-y-4 overflow-hidden rounded-md"
+      id="mobNav-list"
     >
-      <div class="bg-white p-6 rounded-lg h-[90%] w-[90%]">
-        <div
-          id="toolbar"
-          class="flex space-x-y items-center"
+      <p>
+        <a
+          href="javascript:void(0)"
+          class="text-white text-sm sm:text-base whitespace-nowrap"
+          >Lastest Blog</a
         >
-          <select class="ql-header">
-            <option
-              value="0"
-              selected
-            >
-              Normal
-            </option>
-            <option value="1">Heading</option>
-            <option value="2">Subheading</option>
-          </select>
-          <button class="ql-bold"></button>
-          <button class="ql-italic"></button>
-          <button
-            class="ql-list"
-            value="ordered"
-          ></button>
-          <button
-            class="ql-list"
-            value="bullet"
-          ></button>
-          <button class="ql-link"></button>
-          <button class="ql-divider">—</button>
+      </p>
+      <p>
+        <a
+          href="javascript:void(0)"
+          class="text-white text-sm sm:text-base logoutBtn"
+          >Logout</a
+        >
+      </p>
+    </div>
+
+    <div class="flex justify-center items-center mt-5">
+      <div class="w-[80%] min-h-screen">
+        <div class="text-center p-4 space-y-4">
+          <h1 class="text-xl sm:text-2xl md:text-4xl text-white">BLOGS</h1>
+          <hr class="text-gray-500 h-1 w-11/12"/>
         </div>
-        <div id="editor">
-          <p><br>Enter your title here...</p>  <!-- Title Placeholder -->
-          <p><br>Start writing your content...</p>
+        <div class="mt-5">
+          <div class="flex flex-col md:grid md:grid-cols-2 md:space-x-4 space-y-4" id="blogList">
+          </div>
         </div>
       </div>
     </div>
-    <script>
-      const quill = new Quill('#editor', {
-        theme: 'snow',
-        modules: { toolbar: '#toolbar' },
-        placeholder: 'Title',
-      });
-    </script>
   </body>
 </html>

@@ -25,7 +25,6 @@ function loginUser(username, password) {
       return signInWithEmailAndPassword(auth, username, password);
     })
     .then((userCredential) => {
-      console.log('User logged in:', userCredential.user);
       window.location.href = 'dashboard.html';
     })
     .catch((error) => {

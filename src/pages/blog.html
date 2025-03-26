@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Lupix</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../asset/favicon.ico"
+    />
+    <link
+      href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      href="../output.css"
+      rel="stylesheet"
+    />
+    <style>
+      .words-box {
+        height: 24px;
+        margin: auto;
+        overflow: hidden;
+      }
+
+      .animate-text {
+        margin: 0;
+        padding: 0;
+        animation: scrollUp 14s infinite ease-in;
+      }
+
+      .words-box ul li {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        height: 24px;
+        list-style: none;
+        padding: 4px;
+      }
+
+      @keyframes scrollUp {
+        0% {
+          transform: translateY(18px);
+        }
+        12.5% {
+          transform: translateY(0px);
+        }
+        25% {
+          transform: translateY(-24px);
+        }
+        37.5% {
+          transform: translateY(-48px);
+        }
+        50% {
+          transform: translateY(-72px);
+        }
+        62.5% {
+          transform: translateY(-96px);
+        }
+        75% {
+          transform: translateY(-120px);
+        }
+        87.5% {
+          transform: translateY(-144px);
+        }
+        100% {
+          transform: translateY(-164px);
+        }
+      }
+    </style>
+    <script
+      src="../js/blog.js"
+      type="module"
+      defer
+    ></script>
+  </head>
+  <body class="relative bg-black min-h-screen">
+    <!--Navigation bar-->
+    <div class="sticky z-20 top-0">
+      <nav class="p-4 flex justify-between items-center bg-black">
+        <div>
+          <div>
+            <img
+              src="../asset/logo.png"
+              alt="Lupix"
+              class="w-16 h-14"
+              id="logo"
+            />
+          </div>
+          <div class="flex items-center">
+            <span class="text-white text-xl">Lupix</span>
+            <div class="words-box">
+              <ul class="animate-text">
+                <li class="text-xl text-[#D45401]">.Digital</li>
+                <li class="text-xl text-[#D45401]">.Media</li>
+                <li class="text-xl text-[#D45401]">.Tech</li>
+                <li class="text-xl text-[#D45401]">.Production</li>
+                <li class="text-xl text-[#D45401]">.Web</li>
+                <li class="text-xl text-[#D45401]">.Ads</li>
+                <li class="text-xl text-[#D45401]">.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 flex items-center space-x-8" id="navLink">
+          <div class="flex space-x-4">
+            <a
+              href="javascript:void(0)"
+              class="text-white text-xl hover:text-[#D45D01] transition duration-500"
+              id="latestBtn"
+              >Lastest Blog</a
+            >
+            <a
+              href="javascript:void(0)"
+              class="text-white text-xl hover:text-[#D45D01] transition duration-500"
+              id="requested"
+              >Requested Blog</a
+            >
+            <a
+              href="javascript:void(0)"
+              class="text-white text-xl hover:text-[#D45D01] transition duration-500"
+              id="addBtn"
+              >Add Blog</a
+            >
+          </div>
+          <button
+            class="block p-2 bg-[#D45D01] rounded-xl text-xl text-white hover:text-black transition duration-500 cursor-pointer"
+            type="button"
+            id="logoutBtn"
+          >
+            Logout
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <!--editor-->
+    <form>
+      <div class="p-8 space-y-4">
+        <div class="space-y-6">
+          <div class="text-center text-4xl text-white font-bold hidden" id="heading">ADD BLOG</div>
+          <div class="flex space-x-4">
+            <div class="flex justify-between items-center space-x-2">
+              <label
+                for="title"
+                class="text-white text-xl"
+                >Title</label
+              >
+              <input
+                class="text-white text-xl border-white border-1 w-[500px] p-2 rounded-md"
+                placeholder="Enter the title"
+                id="title"
+                required
+              />
+            </div>
+            <div class="flex justify-between items-center space-x-2">
+              <label
+                for="image"
+                class="text-white text-xl"
+                >Cover Image</label
+              >
+              <input
+                type="file"
+                accept="image/*"
+                class="border-white text-white border-1 w-[250px] p-2 rounded-md"
+                id="image"
+                required
+              />
+              <img
+                class="w-[90px] h-[80px] hidden"
+                id="preview"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bg-white min-h-screen text-black"
+          id="editor"
+        ></div>
+        <div class="text-right space-x-2 mt-4">
+          <button
+            class="p-2 bg-blue-500 rounded-md cursor-pointer hover:bg-blue-700"
+            type="submit"
+            id="publish"
+          >
+            Publish
+          </button>
+        </div>
+      </div>
+    </form>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+      const option = [
+        [{ font: [] }],
+
+        [{ header: [0, 1, 2, 3] }],
+
+        ['bold', 'italic', 'underline'],
+
+        [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
+
+        // media
+        ['link', 'image'],
+
+        [{ align: [] }],
+      ];
+      const quill = new Quill('#editor', {
+        theme: 'snow',
+        readOnly: false,
+        placeholder: 'Type your blog....',
+        modules: {
+          toolbar: option,
+        },
+      });
+    </script>
+  </body>
+</html>

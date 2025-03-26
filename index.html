@@ -95,6 +95,26 @@
           transform: translateY(-164px);
         }
       }
+
+      @keyframes dots {
+        20% {
+          content: '';
+        }
+        33% {
+          content: '.';
+        }
+        66% {
+          content: '..';
+        }
+        80% {
+          content: '...';
+        }
+      }
+
+      .dots::after {
+        content: '';
+        animation: dots 3s  infinite;
+      }
     </style>
     <script>
       (function (w, d, s, l, i) {
@@ -161,7 +181,7 @@
           </div>
         </div>
         <div class="md:p-4 flex items-center space-x-8">
-          <div class="hidden md:flex space-x-4 pageLink">
+          <div class="hidden md:flex space-x-4">
             <a
               href="javascript:void(0)"
               class="text-white text-sm sm:text-base md:text-xl hover:text-[#D45D01] transition duration-500"
@@ -197,7 +217,7 @@
       </nav>
       <!-- Mobile navigation -->
       <div
-        class="hidden md:hidden absolute right-0 top-18 bg-black z-30 w-[25%] p-5 space-y-10 pageLink"
+        class="hidden md:hidden absolute right-0 top-18 bg-black z-30 w-[25%] p-5 space-y-10"
         id="mobNav-list"
       >
         <a
@@ -646,24 +666,34 @@
     </div>
 
     <!--News Blog-->
-    <!-- <div class="mt-12 text-center space-y-8">
+    <div
+      class="mt-12 text-center space-y-8 opacity-50"
+      id="blogBox"
+    >
       <div class="space-y-8">
         <p class="text-4xl font-bold text-white">BLOGS</p>
         <p class="text-2xl text-gray-600">Latest Blogs</p>
       </div>
       <div
-        id="blogs grid grid-cols-1 md:grid-cols-2 space-x-4 md:space-x-10"
+        class="text-center text-base sm:text-lg md:text-xl text-white"
+        id="loading"
+      >
+        Loading<span class="dots"></span>
+      </div>
+      <div
+        id="blogs"
+        class="p-4 hidden grid-cols-1 md:grid-cols-2 md:space-x-8 space-y-4"
       ></div>
-      <div>
+      <div class="flex justify-center">
         <button
           class="mt-10 p-4 bg-[#D45D01] rounded-xl text-xs sm:text-base md:text-lg text-white hover:text-black transition duration-500 cursor-pointer"
           type="button"
-          id="loginButton"
+          id="addBlog"
         >
-          Add Blogs
+          Add Your Blog
         </button>
       </div>
-    </div> -->
+    </div>
     <!--Bottom-->
     <div class="relative m-0">
       <!--FAQ-->
@@ -920,7 +950,7 @@
               </a>
             </div>
             <div
-              class="flex justify-center items-center text-white space-x-2 md:space-x-6 pageLink"
+              class="flex justify-center items-center text-white space-x-2 md:space-x-6"
             >
               <a
                 class="text-xs md:text-sm cursor-pointer hover:text-[#D45401] transition-opacity duration-500"
@@ -943,6 +973,12 @@
               >
                 FAQ
               </a>
+              <a
+                class="text-xs md:text-sm cursor-pointer hover:text-[#D45401] transition-opacity duration-500"
+                href="javascript:void(0)"
+                id="loginBtn"
+                >Login</a
+              >
             </div>
             <div class="text-white text-xs">
               <p>© Copyright 2025 LUPIX.DIGITAL.</p>
@@ -1111,8 +1147,66 @@
         </div>
       </div>
     </div>
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53W5JK53"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <!--Sharepopup-->
+    <div
+      id="sharePopup"
+      class="fixed top-0 left-0 w-full h-full hidden justify-center items-center bg-black/95 z-30"
+    >
+      <div class="p-6 rounded-md shadow-lg text-center space-y-6">
+        <div class="flex justify-between items-center">
+          <h2 class="text-white text-lg font-semibold">Share</h2>
+          <button
+            id="closePopupBtn"
+            class="text-lg text-red-600 hover:text-gray-600 cursor-pointer"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="flex space-x-4">
+          <!-- WhatsApp -->
+          <a
+            id="whatsappShare"
+            target="_blank"
+            ><i
+              class="fa-brands fa-whatsapp p-2 text-3xl text-green-500 rounded-md hover:text-white cursor-pointer"
+            ></i
+          ></a>
+          <!-- Twitter -->
+          <a
+            id="twitterShare"
+            target="_blank"
+            ><i
+              class="fa-brands fa-x-twitter p-2 text-3xl text-gray-400 rounded-md hover:text-white cursor-pointer"
+            ></i
+          ></a>
+          <!-- Facebook -->
+          <a
+            id="facebookShare"
+            target="_blank"
+            ><i
+              class="fa-brands fa-facebook p-2 text-3xl text-blue-600 rounded-md hover:text-white cursor-pointer"
+            ></i
+          ></a>
+          <!-- LinkedIn -->
+          <a
+            id="linkedinShare"
+            target="_blank"
+            ><i
+              class="fa-brands fa-linkedin p-2 text-3xl text-blue-400 rounded-md hover:text-white cursor-pointer"
+            ></i
+          ></a>
+        </div>
+      </div>
+    </div>
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-53W5JK53"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
 
     <script>
       function scrollToSection(section) {
