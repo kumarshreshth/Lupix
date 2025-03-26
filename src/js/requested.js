@@ -196,7 +196,7 @@ document.querySelectorAll('.logoutBtn').forEach((btn) => {
       await signOut(auth);
       console.log('Signed out');
       setTimeout(() => {
-        window.location.href = './login.html';
+        window.location.href = 'login.html';
       }, 3000);
     } catch (error) {
       console.log('Error occured ', error);
