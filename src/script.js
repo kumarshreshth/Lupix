@@ -113,7 +113,7 @@ async function fetchBlogs() {
           'fa-eye'
         );
         readBtn.addEventListener('click', () => {
-          window.location.href = `/Lupix/src/pages/view.html?id=${blogObject.id}&container=blogs`;
+          window.location.href = `/src/pages/view.html?id=${blogObject.id}&container=blogs`;
         });
         btns.appendChild(readBtn);
 
@@ -398,7 +398,7 @@ document.querySelectorAll('.mailLink').forEach((link) => {
 });
 
 document.getElementById('loginBtn').addEventListener('click', () => {
-  window.location.href = '/Lupix/src/pages/login.html';
+  window.location.href = '/src/pages/login.html';
 });
 
 // window.addEventListener('load', () => {
@@ -444,5 +444,5 @@ document.getElementById('closePopupBtn').addEventListener('click', () => {
 });
 
 document.getElementById('addBlog').addEventListener('click', () => {
-  window.location.href = '/Lupix/src/pages/blog.html?user=guest&container=requested';
+  window.location.href = '/src/pages/blog.html?user=guest&container=requested';
 });
