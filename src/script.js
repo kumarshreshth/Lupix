@@ -444,5 +444,5 @@ document.getElementById('closePopupBtn').addEventListener('click', () => {
 });
 
 document.getElementById('addBlog').addEventListener('click', () => {
-  window.location.href = '/src/pages/blog.html?user=guest&container=requested';
+  window.location.href = 'src/pages/blog.html?user=guest&container=requested';
 });
