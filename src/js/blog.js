@@ -184,7 +184,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
     }, 500);
     await writeData(data, container);
     setTimeout(() => {
-      if (user == admin) {
+      if (user == 'admin') {
         window.location.href = 'dashboard.html';
       } else {
         window.location.reload();
