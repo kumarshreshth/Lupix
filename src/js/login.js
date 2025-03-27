@@ -28,7 +28,7 @@ function loginUser(username, password) {
       window.location.href = 'dashboard.html';
     })
     .catch((error) => {
-      console.log(error);
+      //console.log(error);
       const messageBlock = document.createElement('div');
       messageBlock.classList.add(
         'fixed',
@@ -58,4 +58,8 @@ document.getElementById('loginForm').addEventListener('submit', (event) => {
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
   loginUser(username, password);
+});
+
+document.getElementById('logo').addEventListener('click', () => {
+  window.location.href = '../../index.html';
 });

@@ -32,7 +32,7 @@ async function readData(blogId, container) {
       }
     });
   } catch (error) {
-    console.log('Error', error);
+    //console.log('Error', error);
   }
 }
 
@@ -42,3 +42,7 @@ if (urlParams.has('id')) {
   const container = urlParams.get('container');
   readData(blogId, container);
 }
+
+document.getElementById('logo').addEventListener('click', () => {
+  window.location.href = '../../index.html';
+});
