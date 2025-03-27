@@ -52,9 +52,8 @@ async function fetchBlogs() {
           'p-4',
           'space-y-4',
           'w-[90%]',
-          'h-[350px]',
-          'sm:h-[450px]',
-          'md:h-[560px]'
+          'h-auto',
+          'relative'
         );
 
         const imageComponent = document.createElement('img');
@@ -99,7 +98,16 @@ async function fetchBlogs() {
         blogComponent.appendChild(contentComponent);
 
         const btns = document.createElement('div');
-        btns.classList.add('space-x-4', 'mt-5', 'text-right');
+        btns.classList.add(
+          'space-x-4',
+          'justify-center',
+          'items-center',
+          'inset-0',
+          'absolute',
+          'w-full',
+          'bg-black/90',
+          'hidden'
+        );
 
         const readBtn = document.createElement('i');
         readBtn.classList.add(
@@ -154,15 +162,25 @@ async function fetchBlogs() {
 
         blogComponent.appendChild(btns);
 
+        blogComponent.addEventListener('mouseenter', () => {
+          btns.classList.remove('hidden');
+          btns.classList.add('flex');
+        });
+
+        blogComponent.addEventListener('mouseleave', () => {
+          btns.classList.remove('flex');
+          btns.classList.add('hidden');
+        });
+
         document.getElementById('blogs').appendChild(blogComponent);
       });
     } else {
-      console.log('no data available');
+      //console.log('no data available');
     }
 
     return true;
   } catch (error) {
-    console.log('Error occured', error);
+    //console.log('Error occured', error);
     return false;
   }
 }
@@ -200,10 +218,10 @@ async function sendMail(name, phoneNumber, emailId, description) {
       templateParam,
       'UmrVycIAFM8ftSJBm'
     );
-    console.log(response.text);
+    //console.log(response.text);
     return response.text;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     throw error;
   }
 }

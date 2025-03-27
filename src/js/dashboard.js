@@ -174,12 +174,12 @@ async function fetchBlogs() {
         deleteBtn.addEventListener('click', async () => {
           try {
             await remove(ref(db, `blogs/${blogObject.id}`));
-            console.log('Deleted');
+            //console.log('Deleted');
             setTimeout(() => {
               window.location.reload();
             }, 3000);
           } catch (error) {
-            console.log('Error ', error);
+            //console.log('Error ', error);
           }
         });
 
@@ -188,10 +188,10 @@ async function fetchBlogs() {
         document.getElementById('blogList').appendChild(blogComponent);
       });
     } else {
-      console.log('no data available');
+      //console.log('no data available');
     }
   } catch (error) {
-    console.log('Error occured', error);
+    //console.log('Error occured', error);
   }
 }
 
@@ -199,12 +199,12 @@ document.querySelectorAll('.logoutBtn').forEach((btn) => {
   btn.addEventListener('click', async () => {
     try {
       await signOut(auth);
-      console.log('Signed out');
+      //console.log('Signed out');
       setTimeout(() => {
         window.location.href = 'login.html';
       }, 3000);
     } catch (error) {
-      console.log('Error occured ', error);
+      //console.log('Error occured ', error);
     }
   });
 });
