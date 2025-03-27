@@ -52,7 +52,9 @@ async function fetchBlogs() {
           'p-4',
           'space-y-4',
           'w-[90%]',
-          'h-auto',
+          'h-[300px]',
+          'sm:h-[400px]',
+          'md:h-[500px]',
           'relative'
         );
 
@@ -419,10 +421,10 @@ document.getElementById('loginBtn').addEventListener('click', () => {
   window.location.href = '/src/pages/login.html';
 });
 
-// window.addEventListener('load', () => {
-//   window.history.scrollRestoration = 'manual';
-//   window.scrollTo(0, 0);
-// });
+window.addEventListener('load', () => {
+  window.history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+});
 
 window.addEventListener('scroll', () => {
   const logo = document.getElementById('logo');
