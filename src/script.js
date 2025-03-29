@@ -24,160 +24,160 @@ function extractText(html) {
   }
 }
 
-// async function fetchBlogs() {
-//   const dbRef = ref(db);
-//   try {
-//     const snapshot = await get(child(dbRef, 'blogs'));
-//     if (snapshot.exists()) {
-//       const dataObject = snapshot.val();
-//       const blogDataList = Object.values(dataObject);
-//       if (blogDataList.length > 1)
-//         blogDataList.sort(
-//           (a, b) => new Date(b.data.createdAt) - new Date(a.data.createdAt)
-//         );
+async function fetchBlogs() {
+  const dbRef = ref(db);
+  try {
+    const snapshot = await get(child(dbRef, 'blogs'));
+    if (snapshot.exists()) {
+      const dataObject = snapshot.val();
+      const blogDataList = Object.values(dataObject);
+      if (blogDataList.length > 1)
+        blogDataList.sort(
+          (a, b) => new Date(b.data.createdAt) - new Date(a.data.createdAt)
+        );
 
-//       blogDataList.forEach((blogObject) => {
-//         const data = blogObject.data;
+      blogDataList.forEach((blogObject) => {
+        const data = blogObject.data;
 
-//         const blogComponent = document.createElement('div');
-//         blogComponent.classList.add(
-//           'p-4',
-//           'space-y-4',
-//           'w-[90%]',
-//           'h-[300px]',
-//           'sm:h-[400px]',
-//           'md:h-[500px]',
-//           'relative'
-//         );
+        const blogComponent = document.createElement('div');
+        blogComponent.classList.add(
+          'p-4',
+          'space-y-4',
+          'w-[90%]',
+          'h-[300px]',
+          'sm:h-[400px]',
+          'md:h-[500px]',
+          'relative'
+        );
 
-//         const imageComponent = document.createElement('img');
-//         imageComponent.classList.add(
-//           'w-full',
-//           'h-[150px]',
-//           'sm:h-[250px]',
-//           'md:h-[300px]',
-//           'rounded-md',
-//           'object-cover'
-//         );
-//         imageComponent.src = data.coverImage;
-//         blogComponent.appendChild(imageComponent);
+        const imageComponent = document.createElement('img');
+        imageComponent.classList.add(
+          'w-full',
+          'h-[150px]',
+          'sm:h-[250px]',
+          'md:h-[300px]',
+          'rounded-md',
+          'object-cover'
+        );
+        imageComponent.src = data.coverImage;
+        blogComponent.appendChild(imageComponent);
 
-//         const titleComponent = document.createElement('h1');
-//         titleComponent.classList.add(
-//           'text-white',
-//           'md:text-2xl',
-//           'sm:text-lg',
-//           'text-center',
-//           'sm:text-left',
-//           'text-base',
-//           'font-bold',
-//           'line-clamp-1'
-//         );
-//         titleComponent.innerText = data.title;
-//         blogComponent.appendChild(titleComponent);
+        const titleComponent = document.createElement('h1');
+        titleComponent.classList.add(
+          'text-white',
+          'md:text-2xl',
+          'sm:text-lg',
+          'text-center',
+          'sm:text-left',
+          'text-base',
+          'font-bold',
+          'line-clamp-1'
+        );
+        titleComponent.innerText = data.title;
+        blogComponent.appendChild(titleComponent);
 
-//         const contentComponent = document.createElement('div');
-//         contentComponent.classList.add(
-//           'text-gray-400',
-//           'md:text-lg',
-//           'text-center',
-//           'sm:text-left',
-//           'sm:text-base',
-//           'text-sm',
-//           'line-clamp-3'
-//         );
-//         const text = extractText(data.content);
-//         contentComponent.innerText = text;
+        const contentComponent = document.createElement('div');
+        contentComponent.classList.add(
+          'text-gray-400',
+          'md:text-lg',
+          'text-center',
+          'sm:text-left',
+          'sm:text-base',
+          'text-sm',
+          'line-clamp-3'
+        );
+        const text = extractText(data.content);
+        contentComponent.innerText = text;
 
-//         blogComponent.appendChild(contentComponent);
+        blogComponent.appendChild(contentComponent);
 
-//         const btns = document.createElement('div');
-//         btns.classList.add(
-//           'space-x-4',
-//           'justify-center',
-//           'items-center',
-//           'inset-0',
-//           'absolute',
-//           'w-full',
-//           'bg-black/90',
-//           'hidden'
-//         );
+        const btns = document.createElement('div');
+        btns.classList.add(
+          'space-x-4',
+          'justify-center',
+          'items-center',
+          'inset-0',
+          'absolute',
+          'w-full',
+          'bg-black/90',
+          'hidden'
+        );
 
-//         const readBtn = document.createElement('i');
-//         readBtn.classList.add(
-//           'text-[#D45401]',
-//           'md:text-3xl',
-//           'text-xl',
-//           'cursor-pointer',
-//           'hover:text-white',
-//           'rounded-md',
-//           'fa-solid',
-//           'fa-eye'
-//         );
-//         readBtn.addEventListener('click', () => {
-//           window.location.href = `/src/pages/view.html?id=${blogObject.id}&container=blogs`;
-//         });
-//         btns.appendChild(readBtn);
+        const readBtn = document.createElement('i');
+        readBtn.classList.add(
+          'text-[#D45401]',
+          'md:text-3xl',
+          'text-xl',
+          'cursor-pointer',
+          'hover:text-white',
+          'rounded-md',
+          'fa-solid',
+          'fa-eye'
+        );
+        readBtn.addEventListener('click', () => {
+          window.location.href = `/src/pages/view.html?id=${blogObject.id}&container=blogs`;
+        });
+        btns.appendChild(readBtn);
 
-//         const shareBtn = document.createElement('i');
-//         shareBtn.classList.add(
-//           'text-[#D45401]',
-//           'md:text-4xl',
-//           'text-xl',
-//           'cursor-pointer',
-//           'hover:text-white',
-//           'rounded-md',
-//           'fa-solid',
-//           'fa-share-nodes'
-//         );
-//         shareBtn.addEventListener('click', () => {
-//           const popup = document.getElementById('sharePopup');
-//           if (popup.classList.contains('hidden')) {
-//             popup.classList.remove('hidden');
-//             popup.classList.add('flex');
-//           }
-//           const relativeURL = `/src/pages/view.html?id=${blogObject.id}&container=blogs`;
-//           const fullURL = new URL(relativeURL, window.location.origin).href;
-//           const url = encodeURIComponent(fullURL);
-//           document.getElementById(
-//             'whatsappShare'
-//           ).href = `https://api.whatsapp.com/send?text=${url}`;
-//           document.getElementById(
-//             'twitterShare'
-//           ).href = `https://twitter.com/intent/tweet?url=${url}`;
-//           document.getElementById(
-//             'facebookShare'
-//           ).href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-//           document.getElementById(
-//             'linkedinShare'
-//           ).href = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
-//         });
-//         btns.appendChild(shareBtn);
+        const shareBtn = document.createElement('i');
+        shareBtn.classList.add(
+          'text-[#D45401]',
+          'md:text-4xl',
+          'text-xl',
+          'cursor-pointer',
+          'hover:text-white',
+          'rounded-md',
+          'fa-solid',
+          'fa-share-nodes'
+        );
+        shareBtn.addEventListener('click', () => {
+          const popup = document.getElementById('sharePopup');
+          if (popup.classList.contains('hidden')) {
+            popup.classList.remove('hidden');
+            popup.classList.add('flex');
+          }
+          const relativeURL = `/src/pages/view.html?id=${blogObject.id}&container=blogs`;
+          const fullURL = new URL(relativeURL, window.location.origin).href;
+          const url = encodeURIComponent(fullURL);
+          document.getElementById(
+            'whatsappShare'
+          ).href = `https://api.whatsapp.com/send?text=${url}`;
+          document.getElementById(
+            'twitterShare'
+          ).href = `https://twitter.com/intent/tweet?url=${url}`;
+          document.getElementById(
+            'facebookShare'
+          ).href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+          document.getElementById(
+            'linkedinShare'
+          ).href = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
+        });
+        btns.appendChild(shareBtn);
 
-//         blogComponent.appendChild(btns);
+        blogComponent.appendChild(btns);
 
-//         blogComponent.addEventListener('mouseenter', () => {
-//           btns.classList.remove('hidden');
-//           btns.classList.add('flex');
-//         });
+        blogComponent.addEventListener('mouseenter', () => {
+          btns.classList.remove('hidden');
+          btns.classList.add('flex');
+        });
 
-//         blogComponent.addEventListener('mouseleave', () => {
-//           btns.classList.remove('flex');
-//           btns.classList.add('hidden');
-//         });
+        blogComponent.addEventListener('mouseleave', () => {
+          btns.classList.remove('flex');
+          btns.classList.add('hidden');
+        });
 
-//         document.getElementById('blogs').appendChild(blogComponent);
-//       });
-//     } else {
-//       //console.log('no data available');
-//     }
+        document.getElementById('blogs').appendChild(blogComponent);
+      });
+    } else {
+      //console.log('no data available');
+    }
 
-//     return true;
-//   } catch (error) {
-//     //console.log('Error occured', error);
-//     return false;
-//   }
-// }
+    return true;
+  } catch (error) {
+    //console.log('Error occured', error);
+    return false;
+  }
+}
 
 async function sendDoubt(query, emailId) {
   const templateParam = {
