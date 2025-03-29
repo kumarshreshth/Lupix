@@ -8,6 +8,20 @@ import { app } from './config.js';
 
 const db = getDatabase(app);
 
+function formatDate(dateData) {
+  const dateObject = new Date(dateData);
+
+  const options = {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    hour: 'numeric',
+    minute: 'numeric',
+  };
+
+  return dateObject.toLocaleString('en-US', options);
+}
+
 async function readData(blogId, container) {
   try {
     await get(ref(db, `${container}/${blogId}`)).then((snapshot) => {
@@ -18,12 +32,15 @@ async function readData(blogId, container) {
         document.getElementById('coverImage').src = data.coverImage;
         document.getElementById('title').textContent = data.title;
         document.getElementById('content').innerHTML = data.content;
+        document.getElementById('time').textContent = formatDate(
+          data.createdAt
+        );
 
         document.getElementById('blogPage').classList.remove('hidden');
       }
     });
   } catch (error) {
-    //console.log('Error', error);
+    console.log('Error', error);
   }
 }
 

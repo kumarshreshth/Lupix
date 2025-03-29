@@ -116,6 +116,7 @@ if (user == 'admin') {
 }
 
 if (urlParams.has('update')) {
+  document.getElementById('image').required = false;
   readData(blogId, container);
 }
 
