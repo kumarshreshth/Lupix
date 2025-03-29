@@ -1,4 +1,3 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js';
 import {
   getAuth,
   signOut,
@@ -13,18 +12,8 @@ import {
   remove,
 } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js';
 
-import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
+import { app } from './config.js';
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyDoZ7333sF0iBNexD4qgaaEgFf0Bk49QTI',
-  authDomain: 'lupix-6c24c.firebaseapp.com',
-  projectId: 'lupix-6c24c',
-  storageBucket: 'lupix-6c24c.firebasestorage.app',
-  messagingSenderId: '979299211192',
-  appId: '1:979299211192:web:4d0949676e4a7835d6e14d',
-};
-
-const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getDatabase(app);
 
