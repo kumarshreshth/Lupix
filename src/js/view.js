@@ -19,7 +19,3 @@ if (urlParams.has('id')) {
     errorMessage(error);
   }
 }
-
-document.getElementById('logo').addEventListener('click', () => {
-  window.location.href = '../../index.html';
-});
