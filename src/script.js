@@ -1,4 +1,5 @@
 import { fetchBlogs } from './functions/database.js';
+import { errorMessage } from '../src/functions/message.js';
 
 async function sendDoubt(query, emailId) {
   const templateParam = {
@@ -269,7 +270,7 @@ window.onload = async function () {
     }, 3000);
   } catch (error) {
     console.log(error);
-    throw new Error('Error');
+    errorMessage(error);
   }
 };
 

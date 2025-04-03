@@ -1,9 +1,13 @@
 import { logOut } from '../functions/auth.js';
 import { auth } from '../functions/config.js';
-import { fetchBlogs, removeLog } from '../functions/database.js';
+import { fetchBlogs } from '../functions/database.js';
 
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js';
-import { loadingMessage, removeLoading } from '../functions/message.js';
+import {
+  errorMessage,
+  loadingMessage,
+  removeLoading,
+} from '../functions/message.js';
 
 onAuthStateChanged(auth, (user) => {
   if (!user || user.isAnonymous) {
@@ -19,8 +23,7 @@ document.querySelectorAll('.logoutBtn').forEach((btn) => {
         window.location.href = 'login.html';
       }, 3000);
     } catch (error) {
-      console.log(error);
-      throw new Error('Error');
+      errorMessage(error);
     }
   });
 });
@@ -51,7 +54,6 @@ window.onload = async () => {
       removeLoading(loading);
     }
   } catch (error) {
-    console.log(error);
-    throw new Error('Error');
+    errorMessage(error);
   }
 };

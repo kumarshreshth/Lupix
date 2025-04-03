@@ -68,3 +68,20 @@ export function removeLoading({ loadingComponent, interval }) {
   clearInterval(interval);
   document.body.removeChild(loadingComponent);
 }
+
+export function errorMessage(error) {
+  document.body.innerHTML = '';
+  document.body.className = '';
+  const errorBlock = document.createElement('div');
+  errorBlock.classList.add('m-4', 'p-4', 'space-y-8');
+  const errorHeading = document.createElement('h1');
+  errorHeading.classList.add('text-4xl', 'text-red-500');
+  errorHeading.innerText = 'An error has occured!! Try again!';
+  errorBlock.appendChild(errorHeading);
+  const errorMessage = document.createElement('p');
+  errorMessage.classList.add('text-2xl', 'p-4');
+  errorMessage.innerText = error;
+  errorBlock.appendChild(errorMessage);
+  document.body.appendChild(errorBlock);
+  throw new Error();
+}

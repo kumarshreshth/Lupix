@@ -7,6 +7,7 @@ import {
   updateUserData,
 } from '../functions/database.js';
 import {
+  errorMessage,
   loadingMessage,
   removeLoading,
   showMessage,
@@ -46,7 +47,7 @@ if (user == 'admin') {
         window.location.href = 'login.html';
       }, 3000);
     } catch (error) {
-      console.log(error);
+      errorMessage(error);
     }
   });
 } else {
@@ -67,8 +68,7 @@ if (urlParams.has('update')) {
   try {
     await readData(blogId, container);
   } catch (error) {
-    console.log(error);
-    throw new Error('Error');
+    errorMessage(error);
   }
 }
 
@@ -121,16 +121,14 @@ document.getElementById('form').addEventListener('submit', async (event) => {
           }, 1000);
         }, 3000);
       } catch (error) {
-        console.log(error);
-        throw new Error('Error');
+        errorMessage(error);
       }
     } else {
       // If the container is not 'blogs', remove log and write data
       try {
         await removeLog('requested', blogId);
       } catch (error) {
-        console.log(error);
-        throw new Error('Error');
+        errorMessage(error);
       }
       try {
         await writeData(data, 'blogs');
@@ -141,8 +139,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
           }, 1000);
         }, 3000);
       } catch (error) {
-        console.log(error);
-        throw new Error('Error');
+        errorMessage(error);
       }
     }
   } else {
@@ -160,8 +157,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
           try {
             await newAuthUser();
           } catch (error) {
-            console.log(error);
-            throw new Error('Error');
+            errorMessage(error);
           }
         } else {
           console.log('Existing user', authUser.uid);
@@ -169,28 +165,57 @@ document.getElementById('form').addEventListener('submit', async (event) => {
           const currentTime = Date.now();
           try {
             const userData = await readUserData(authUser.uid);
+          } catch (error) {
+            errorMessage(error);
+          }
 
-            if (userData == null) {
+          if (userData == null) {
+            try {
+              await newAuthUser();
+            } catch (error) {
+              errorMessage(error);
+            }
+          } else {
+            const remainingCount = userData.writeCount;
+
+            if (remainingCount > 0) {
+              console.log('Remaining Count', remainingCount);
+
               try {
-                await newAuthUser();
+                await updateUserData(authUser.uid, {
+                  writeCount: remainingCount - 1,
+                  lastUpdated: Date.now(),
+                });
               } catch (error) {
-                console.log(error);
-                throw new Error('Error');
+                errorMessage(error);
+              }
+
+              try {
+                await writeData(data, container);
+                setTimeout(() => {
+                  removeLoading(loading);
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 1000);
+                }, 3000);
+              } catch (error) {
+                errorMessage(error);
               }
             } else {
-              const remainingCount = userData.writeCount;
+              console.log('No remaining count');
+              const lastUpdated = userData.lastUpdated;
+              console.log(lastUpdated, currentTime);
+              const timePassed = currentTime - lastUpdated;
+              console.log(timePassed);
 
-              if (remainingCount > 0) {
-                console.log('Remaining Count', remainingCount);
-
+              if (timePassed >= 120000) {
                 try {
                   await updateUserData(authUser.uid, {
-                    writeCount: remainingCount - 1,
-                    lastUpdated: Date.now(),
+                    writeCount: 2,
+                    lastUpdated: currentTime,
                   });
                 } catch (error) {
-                  console.log(error);
-                  throw new Error('Error');
+                  errorMessage(error);
                 }
 
                 try {
@@ -202,50 +227,15 @@ document.getElementById('form').addEventListener('submit', async (event) => {
                     }, 1000);
                   }, 3000);
                 } catch (error) {
-                  console.log(error);
-                  throw new Error('Error');
+                  errorMessage(error);
                 }
               } else {
-                console.log('No remaining count');
-                const lastUpdated = userData.lastUpdated;
-                console.log(lastUpdated, currentTime);
-                const timePassed = currentTime - lastUpdated;
-                console.log(timePassed);
-
-                if (timePassed >= 120000) {
-                  try {
-                    await updateUserData(authUser.uid, {
-                      writeCount: 2,
-                      lastUpdated: currentTime,
-                    });
-                  } catch (error) {
-                    console.log(error);
-                    throw new Error('Error');
-                  }
-
-                  try {
-                    await writeData(data, container);
-                    setTimeout(() => {
-                      removeLoading(loading);
-                      setTimeout(() => {
-                        window.location.reload();
-                      }, 1000);
-                    }, 3000);
-                  } catch (error) {
-                    console.log(error);
-                    throw new Error('Error');
-                  }
-                } else {
-                  removeLoading(loading);
-                  console.log('message');
-                  showMessage('Exceeded Limit', 'error');
-                  return;
-                }
+                removeLoading(loading);
+                console.log('message');
+                showMessage('Exceeded Limit', 'error');
+                return;
               }
             }
-          } catch (error) {
-            console.log(error);
-            throw new Error('Error');
           }
         }
       });
@@ -257,8 +247,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
           window.location.href = 'dashboard.html';
         }, 3000);
       } catch (error) {
-        console.log(error);
-        throw new Error('Error');
+        errorMessage(error);
       }
     }
   }

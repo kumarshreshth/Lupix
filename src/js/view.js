@@ -1,5 +1,9 @@
 import { viewData } from '../functions/database.js';
-import { loadingMessage, removeLoading } from '../functions/message.js';
+import {
+  loadingMessage,
+  removeLoading,
+  errorMessage,
+} from '../functions/message.js';
 
 const loading = loadingMessage('Fetching');
 const urlParams = new URLSearchParams(window.location.search);
@@ -12,8 +16,7 @@ if (urlParams.has('id')) {
       removeLoading(loading);
     }
   } catch (error) {
-    console.log(error);
-    throw new Error('Error');
+    errorMessage(error);
   }
 }
 
