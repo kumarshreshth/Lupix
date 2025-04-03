@@ -31,7 +31,7 @@
       .animate-text {
         margin: 0;
         padding: 0;
-        animation: scrollUp 14s infinite ease-in-out;
+        animation: scrollUp 8s infinite ease-in-out;
       }
 
       .words-box ul li {
@@ -114,6 +114,20 @@
       .dots::after {
         content: '';
         animation: dots 3s infinite;
+      }
+
+      .scrolling-text {
+        white-space: nowrap;
+        animation: scrollText 2s linear infinite;
+      }
+
+      @keyframes scrollText {
+        from {
+          transform: translateX(0%);
+        }
+        to {
+          transform: translateX(-100%);
+        }
       }
     </style>
     <script>
@@ -205,7 +219,7 @@
             class="booking hidden md:block p-2 bg-[#D45D01] rounded-xl text-xl text-white hover:text-black transition duration-500 cursor-pointer"
             type="button"
           >
-            Book a Meeting
+            Contact us
           </button>
           <button
             class="md:hidden text-white p-2 text-lg cursor-pointer"
@@ -269,13 +283,6 @@
           management, and ad campaign optimization, we empower your brand to
           thrive in today's competitive landscape.
         </p>
-
-        <button
-          type="button"
-          class="booking p-4 mt-8 bg-[#D45D01] rounded-xl text-xs sm:text-base md:text-lg text-white hover:text-black transition duration-500 cursor-pointer"
-        >
-          Book A Meeting
-        </button>
       </div>
     </div>
 
@@ -654,15 +661,6 @@
           </div>
         </div>
       </div>
-
-      <div class="flex justify-center">
-        <button
-          type="button"
-          class="booking mt-10 p-4 bg-[#D45D01] rounded-xl text-xs sm:text-base md:text-lg text-white hover:text-black transition duration-500 cursor-pointer"
-        >
-          Book A Call
-        </button>
-      </div>
     </div>
 
     <!--News Blog-->
@@ -698,7 +696,7 @@
     <div>
       <!--FAQ-->
       <div
-        class="relative bg-white text-black z-10"
+        class="relative bg-white text-black z-10 rounded-b-3xl"
         id="faq"
       >
         <div class="text-center mt-6 md:mt-10 p-6 md:p-10">
@@ -846,84 +844,96 @@
       </div>
 
       <!--Footer-->
-      <div class="-mt-[50vh]">
-        <div class="h-[50vh]"></div>
-        <div class="sticky bottom-0">
-          <div class="relative p-4 mt-2">
-            <div class="w-[95%] ">
+      <div class="lg:-mt-[100vh]">
+        <div class="hidden lg:flex lg:h-[100vh]"></div>
+        <div class="lg:sticky lg:bottom-0">
+          <div class="flex justify-center">
+            <div class="m-4 w-[90%]">
               <div
-                class="text-[100px] md:text-[145px] lg:text-[215px] xl:text-[245px] font-extrabold flex justify-center items-center"
+                class="flex justify-center items-center"
+                id="show"
               >
-                <p class="text-[#D45401]">L</p>
-                <p class="text-white">UPIX</p>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-center">
-                <hr class="h-4 w-11/12 opacity-50 text-white" />
-              </div>
-              <div
-                class="space-y-4 text-center md:space-y-0 md:flex md:justify-around md:items-center"
-              >
-                <div
-                  class="text-white flex justify-center items-center space-x-4"
-                >
-                  <a
-                    href="https://www.instagram.com/lupixhq/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <i class="fa-brands fa-instagram"></i>
-                  </a>
-                  <a
-                    href="https://www.facebook.com/profile.php?id=61571364940354"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <i class="fa-brands fa-facebook"></i>
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/company/lupix-digital/?viewAsMember=true"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <i class="fa-brands fa-linkedin"></i>
-                  </a>
+                <div class="cursor-pointer showContact">
+                  <div class="text-[80px] sm:text-[150px] md:text-[200px] lg:text-[260px] text-white font-bold">LUPIX</div>
                 </div>
                 <div
-                  class="flex justify-center items-center text-white space-x-2 md:space-x-6"
+                  class="flex flex-col justify-center cursor-pointer sm:space-y-1 p-4 text-[#D45401] showContact"
                 >
-                  <a
-                    class="text-xs md:text-sm cursor-pointer hover:text-[#D45401] transition-opacity duration-500"
-                    href="javascript:void(0)"
-                    onclick="scrollToSection('about')"
-                  >
-                    About
-                  </a>
-                  <a
-                    class="text-xs md:text-sm cursor-pointer hover:text-[#D45401] transition-opacity duration-500"
-                    href="javascript:void(0)"
-                    onclick="scrollToSection('services')"
-                  >
-                    Services
-                  </a>
-                  <a
-                    class="text-xs md:text-sm cursor-pointer hover:text-[#D45401] transition-opacity duration-500"
-                    href="javascript:void(0)"
-                    onclick="scrollToSection('faq')"
-                  >
-                    FAQ
-                  </a>
-                  <a
-                    class="text-xs md:text-sm cursor-pointer hover:text-[#D45401] transition-opacity duration-500"
-                    href="javascript:void(0)"
-                    id="loginBtn"
-                    >Login</a
-                  >
+                  <div class="text-base sm:text-xl md:text-2xl lg:text-5xl">DIGITAL</div>
+                  <div class="text-base sm:text-xl md:text-2xl lg:text-5xl">MARKETING</div>
+                  <div class="text-base sm:text-xl md:text-2xl lg:text-5xl">AGENCY</div>
                 </div>
-                <div class="text-white text-xs">
-                  <p>© Copyright 2025 LUPIX.DIGITAL.</p>
-                  <p>All Right Reserved, All Wrong Reversed.</p>
+              </div>
+              <div>
+                <div class="flex justify-center">
+                  <hr class="h-4 w-full opacity-50 text-white" />
+                </div>
+                <div
+                  class="space-y-4 text-center md:space-y-0 md:flex md:justify-around md:items-center"
+                >
+                  <div
+                    class="text-white flex justify-center items-center space-x-4"
+                  >
+                    <a
+                      href="https://www.instagram.com/lupixhq/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a
+                      href="https://www.facebook.com/profile.php?id=61571364940354"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i class="fa-brands fa-facebook"></i>
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/company/lupix-digital/?viewAsMember=true"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i class="fa-brands fa-linkedin"></i>
+                    </a>
+                    <a class="mailLink cursor-pointer">
+                      <i class="fa-solid fa-envelope text-white"></i>
+                    </a>
+                  </div>
+                  <div
+                    class="flex justify-center items-center text-white space-x-2 md:space-x-6"
+                  >
+                    <a
+                      class="text-xs md:text-sm cursor-pointer hover:text-[#D45401] transition-opacity duration-500"
+                      href="javascript:void(0)"
+                      onclick="scrollToSection('about')"
+                    >
+                      About
+                    </a>
+                    <a
+                      class="text-xs md:text-sm cursor-pointer hover:text-[#D45401] transition-opacity duration-500"
+                      href="javascript:void(0)"
+                      onclick="scrollToSection('services')"
+                    >
+                      Services
+                    </a>
+                    <a
+                      class="text-xs md:text-sm cursor-pointer hover:text-[#D45401] transition-opacity duration-500"
+                      href="javascript:void(0)"
+                      onclick="scrollToSection('faq')"
+                    >
+                      FAQ
+                    </a>
+                    <a
+                      class="text-xs md:text-sm cursor-pointer hover:text-[#D45401] transition-opacity duration-500"
+                      href="javascript:void(0)"
+                      id="loginBtn"
+                      >Login</a
+                    >
+                  </div>
+                  <div class="text-white text-xs">
+                    <p>© Copyright 2025 LUPIX.DIGITAL.</p>
+                    <p>All Right Reserved, All Wrong Reversed.</p>
+                  </div>
                 </div>
               </div>
             </div>

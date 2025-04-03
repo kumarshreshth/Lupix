@@ -1,183 +1,4 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js';
-
-import {
-  getDatabase,
-  child,
-  ref,
-  get,
-} from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js';
-
-import { app } from './js/config.js';
-
-const db = getDatabase(app);
-
-function extractText(html) {
-  const temp = document.createElement('div');
-  temp.innerHTML = html;
-
-  const paragraphs = temp.querySelectorAll('p');
-  if (paragraphs.length > 0) {
-    const text = Array.from(paragraphs)
-      .map((p) => p.textContent.trim())
-      .join('');
-    return text;
-  }
-}
-
-async function fetchBlogs() {
-  const dbRef = ref(db);
-  try {
-    const snapshot = await get(child(dbRef, 'blogs'));
-    if (snapshot.exists()) {
-      const dataObject = snapshot.val();
-      const blogDataList = Object.values(dataObject);
-      if (blogDataList.length > 1)
-        blogDataList.sort(
-          (a, b) => new Date(b.data.createdAt) - new Date(a.data.createdAt)
-        );
-
-      blogDataList.forEach((blogObject) => {
-        const data = blogObject.data;
-
-        const blogComponent = document.createElement('div');
-        blogComponent.classList.add(
-          'p-4',
-          'space-y-4',
-          'w-[90%]',
-          'h-[300px]',
-          'sm:h-[400px]',
-          'md:h-[500px]',
-          'relative'
-        );
-
-        const imageComponent = document.createElement('img');
-        imageComponent.classList.add(
-          'w-full',
-          'h-[150px]',
-          'sm:h-[250px]',
-          'md:h-[300px]',
-          'rounded-md',
-          'object-cover'
-        );
-        imageComponent.src = data.coverImage;
-        blogComponent.appendChild(imageComponent);
-
-        const titleComponent = document.createElement('h1');
-        titleComponent.classList.add(
-          'text-white',
-          'md:text-2xl',
-          'sm:text-lg',
-          'text-center',
-          'sm:text-left',
-          'text-base',
-          'font-bold',
-          'line-clamp-1'
-        );
-        titleComponent.innerText = data.title;
-        blogComponent.appendChild(titleComponent);
-
-        const contentComponent = document.createElement('div');
-        contentComponent.classList.add(
-          'text-gray-400',
-          'md:text-lg',
-          'text-center',
-          'sm:text-left',
-          'sm:text-base',
-          'text-sm',
-          'line-clamp-3'
-        );
-        const text = extractText(data.content);
-        contentComponent.innerText = text;
-
-        blogComponent.appendChild(contentComponent);
-
-        const btns = document.createElement('div');
-        btns.classList.add(
-          'space-x-4',
-          'justify-center',
-          'items-center',
-          'inset-0',
-          'absolute',
-          'w-full',
-          'bg-black/90',
-          'hidden'
-        );
-
-        const readBtn = document.createElement('i');
-        readBtn.classList.add(
-          'text-[#D45401]',
-          'md:text-3xl',
-          'text-xl',
-          'cursor-pointer',
-          'hover:text-white',
-          'rounded-md',
-          'fa-solid',
-          'fa-eye'
-        );
-        readBtn.addEventListener('click', () => {
-          window.location.href = `/src/pages/view.html?id=${blogObject.id}&container=blogs`;
-        });
-        btns.appendChild(readBtn);
-
-        const shareBtn = document.createElement('i');
-        shareBtn.classList.add(
-          'text-[#D45401]',
-          'md:text-4xl',
-          'text-xl',
-          'cursor-pointer',
-          'hover:text-white',
-          'rounded-md',
-          'fa-solid',
-          'fa-share-nodes'
-        );
-        shareBtn.addEventListener('click', () => {
-          const popup = document.getElementById('sharePopup');
-          if (popup.classList.contains('hidden')) {
-            popup.classList.remove('hidden');
-            popup.classList.add('flex');
-          }
-          const relativeURL = `/src/pages/view.html?id=${blogObject.id}&container=blogs`;
-          const fullURL = new URL(relativeURL, window.location.origin).href;
-          const url = encodeURIComponent(fullURL);
-          document.getElementById(
-            'whatsappShare'
-          ).href = `https://api.whatsapp.com/send?text=${url}`;
-          document.getElementById(
-            'twitterShare'
-          ).href = `https://twitter.com/intent/tweet?url=${url}`;
-          document.getElementById(
-            'facebookShare'
-          ).href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-          document.getElementById(
-            'linkedinShare'
-          ).href = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
-        });
-        btns.appendChild(shareBtn);
-
-        blogComponent.appendChild(btns);
-
-        blogComponent.addEventListener('mouseenter', () => {
-          btns.classList.remove('hidden');
-          btns.classList.add('flex');
-        });
-
-        blogComponent.addEventListener('mouseleave', () => {
-          btns.classList.remove('flex');
-          btns.classList.add('hidden');
-        });
-
-        document.getElementById('blogs').appendChild(blogComponent);
-      });
-    } else {
-      //console.log('no data available');
-    }
-
-    return true;
-  } catch (error) {
-    //console.log('Error occured', error);
-    return false;
-  }
-}
+import { fetchBlogs } from './functions/database.js';
 
 async function sendDoubt(query, emailId) {
   const templateParam = {
@@ -435,7 +256,7 @@ window.addEventListener('scroll', () => {
 });
 
 window.onload = async function () {
-  const value = await fetchBlogs();
+  const value = await fetchBlogs('blogs', true);
   setTimeout(() => {
     if (value === true) {
       document.getElementById('loading').classList.add('hidden');
@@ -457,4 +278,63 @@ document.getElementById('closePopupBtn').addEventListener('click', () => {
 
 document.getElementById('addBlog').addEventListener('click', () => {
   window.location.href = 'src/pages/blog.html?user=guest&container=requested';
+});
+
+document.querySelectorAll('.showContact').forEach((component) => {
+  component.addEventListener('click', () => {
+    document.getElementById('meetingForm').classList.remove('hidden');
+    document.getElementById('meetingForm').classList.add('flex');
+  });
+
+  let content;
+
+  component.addEventListener('mouseenter', () => {
+    if (!content) {
+      content = document.createElement('div');
+      content.classList.add(
+        'bg-gray-800',
+        'hidden',
+        'text-white',
+        'p-2',
+        'rounded-md',
+        'absolute',
+        'pointer-events-none',
+        'overflow-hidden',
+        'w-[200px]'
+      );
+      const scrollText = document.createElement('div');
+      scrollText.classList.add('scrolling-text');
+      scrollText.innerText =
+        'Contact us • Contact us • Contact us • Contact us • Contact us • Contact us • Contact us • Contact us • Contact us •';
+
+      content.appendChild(scrollText);
+      document.body.appendChild(content);
+
+      window.addEventListener('scroll', () => {
+        if (content && content.classList.contains('lg:block')) {
+          content.classList.remove('lg:block');
+        }
+      });
+    }
+  });
+
+  component.addEventListener('mousemove', (event) => {
+    if (!content.classList.contains('lg:block')) {
+      content.classList.add('lg:block');
+    }
+    if (content) {
+      const offsetX = -30;
+      const offsetY = 50;
+      content.style.left = `${event.pageX + offsetX}px`;
+      content.style.top = `${event.pageY - offsetY}px`;
+      content.style.position = 'absolute';
+    }
+  });
+
+  component.addEventListener('mouseleave', () => {
+    if (content) {
+      content.remove();
+      content = null;
+    }
+  });
 });
