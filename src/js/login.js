@@ -1,13 +1,12 @@
 import {
-  getAuth,
   signInWithEmailAndPassword,
   setPersistence,
   browserSessionPersistence,
 } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js';
 
-import { app } from './config.js';
+import { auth } from '../functions/config.js';
 
-const auth = getAuth();
+import { showMessage } from '../functions/message.js';
 
 function loginUser(username, password) {
   setPersistence(auth, browserSessionPersistence)
@@ -18,28 +17,7 @@ function loginUser(username, password) {
       window.location.href = 'dashboard.html';
     })
     .catch((error) => {
-      //console.log(error);
-      const messageBlock = document.createElement('div');
-      messageBlock.classList.add(
-        'fixed',
-        'top-5',
-        'right-5',
-        'bg-black',
-        'z-30',
-        'p-3',
-        'rounded-xl',
-        'border-2',
-        'border-white',
-        'opacity-80'
-      );
-      const messageElement = document.createElement('p');
-      messageElement.innerText = 'Wrong username or password';
-      messageElement.classList.add('text-red-700');
-      messageBlock.appendChild(messageElement);
-      document.body.appendChild(messageBlock);
-      setTimeout(() => {
-        messageBlock.remove();
-      }, 3000);
+      showMessage('Wrong username or password');
     });
 }
 

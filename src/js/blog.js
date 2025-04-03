@@ -1,70 +1,20 @@
 import {
-  getDatabase,
-  ref,
-  set,
-  get,
-  update,
-  remove,
-} from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js';
-import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
+  updateData,
+  readData,
+  writeData,
+  removeLog,
+  readUserData,
+  updateUserData,
+} from '../functions/database.js';
 import {
-  getAuth,
-  signOut,
-  onAuthStateChanged,
-} from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js';
+  loadingMessage,
+  removeLoading,
+  showMessage,
+} from '../functions/message.js';
+import { logOut, newAuthUser } from '../functions/auth.js';
+import { auth } from '../functions/config.js';
 
-import { app } from './config.js';
-
-const db = getDatabase(app);
-const auth = getAuth();
-
-async function updateData(blogId, updatedData, container) {
-  try {
-    await update(ref(db, `${container}/${blogId}`), {
-      data: updatedData,
-    });
-    //console.log('Data updated');
-    setTimeout(() => {
-      window.location.href = 'dashboard.html';
-    }, 3000);
-  } catch (error) {
-    //console.log('Error', error);
-  }
-}
-
-async function writeData(data, container) {
-  const id = uuidv4();
-  try {
-    await set(ref(db, `${container}/` + id), {
-      id: id,
-      data: data,
-    });
-    //console.log('Data added');
-  } catch (error) {
-    //console.log('Error generated', error);
-  }
-}
-
-async function readData(blogId, container) {
-  try {
-    await get(ref(db, `${container}/${blogId}`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        const blogObject = snapshot.val();
-        const data = blogObject.data;
-
-        document.getElementById('title').value = data.title;
-        quill.root.innerHTML = data.content;
-        const previewImage = document.getElementById('preview');
-        previewImage.src = data.coverImage;
-        if (previewImage.classList.contains('hidden')) {
-          preview.classList.remove('hidden');
-        }
-      }
-    });
-  } catch (error) {
-    //console.log('Error', error);
-  }
-}
+import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js';
 
 const urlParams = new URLSearchParams(window.location.search);
 const user = urlParams.get('user');
@@ -73,11 +23,10 @@ const container = urlParams.get('container');
 
 if (user == 'admin') {
   onAuthStateChanged(auth, (user) => {
-    if (!user) {
+    if (!user || user.isAnonymous) {
       window.location.href = 'login.html';
     }
   });
-
   document.getElementById('latestBtn').addEventListener('click', () => {
     window.location.href = 'dashboard.html';
   });
@@ -91,15 +40,10 @@ if (user == 'admin') {
   });
 
   document.getElementById('logoutBtn').addEventListener('click', async () => {
-    try {
-      await signOut(auth);
-      //console.log('Signed out');
-      setTimeout(() => {
-        window.location.href = 'login.html';
-      }, 3000);
-    } catch (error) {
-      //console.log('Error occured ', error);
-    }
+    await logOut();
+    setTimeout(() => {
+      window.location.href = 'login.html';
+    }, 3000);
   });
 } else {
   if (user == 'guest') {
@@ -116,23 +60,25 @@ if (user == 'admin') {
 }
 
 if (urlParams.has('update')) {
-  document.getElementById('image').required = false;
-  readData(blogId, container);
+  await readData(blogId, container);
 }
 
-document.getElementById('form').addEventListener('submit', async (event) => {
-  event.preventDefault();
+function checkLength() {
   const text = quill.getText().trim();
   if (text.length === 0) {
     const component = document.getElementById('emptyMessage');
     component.classList.replace('hidden', 'flex');
     window.scrollTo(0, 100);
-    return;
+    return false;
+  } else {
+    return true;
   }
+}
+
+function collectBlogData() {
   const title = document.getElementById('title').value;
   const coverImage = document.getElementById('preview').src;
   const content = quill.root.innerHTML;
-  //console.log(content);
   const time = new Date().toLocaleString();
   const data = {
     title: title,
@@ -140,48 +86,117 @@ document.getElementById('form').addEventListener('submit', async (event) => {
     content: content,
     createdAt: time,
   };
-  //console.log(data);
+  return data;
+}
+
+document.getElementById('form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const contentLength = checkLength();
+  if (!contentLength) {
+    return;
+  }
+
+  const data = collectBlogData();
+
   if (urlParams.has('update')) {
+    const loaded = loadingMessage('Updating');
     if (container == 'blogs') {
-      updateData(blogId, data, 'blogs');
+      // Update data if the container is 'blogs'
+      await updateData(blogId, data, 'blogs');
+      setTimeout(() => {
+        removeLoading(loaded);
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 1000);
+      }, 3000);
     } else {
-      try {
-        await remove(ref(db, `requested/${blogId}`));
-        //console.log('Deleted');
-      } catch (error) {
-        //console.log('Error ', error);
-      }
+      // If the container is not 'blogs', remove log and write data
+      removeLog('requested', blogId);
       await writeData(data, 'blogs');
       setTimeout(() => {
-        window.location.href = 'dashboard.html';
+        removeLoading(loaded);
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 1000);
       }, 3000);
     }
   } else {
-    document.getElementById('loadingBox').classList.replace('hidden', 'flex');
+    let loading;
     if (user == 'guest') {
-      let loadingText = document.getElementById('loadingContent');
-      loadingText.innerHTML = 'Submitting<span class="dots"></span>';
+      loading = loadingMessage('Submitting');
     } else {
-      let loadingText = document.getElementById('loadingContent');
-      loadingText.innerHTML = 'Publishing<span class="dots"></span>';
+      loading = loadingMessage('Publishing');
     }
-    let dotsSpan = document.querySelector('.dots');
-    let dots = '';
-    let dotCount = 0;
 
-    setInterval(() => {
-      dotCount = (dotCount + 1) % 4;
-      dots = '.'.repeat(dotCount);
-      dotsSpan.textContent = dots;
-    }, 500);
-    await writeData(data, container);
-    setTimeout(() => {
-      if (user == 'admin') {
+    if (user == 'guest') {
+      onAuthStateChanged(auth, async (authUser) => {
+        console.log(authUser);
+        if (!authUser) {
+          await newAuthUser();
+        } else {
+          console.log('Existing user', authUser.uid);
+
+          const currentTime = Date.now();
+          const userData = await readUserData(authUser.uid);
+
+          if (userData == null) {
+            await newAuthUser();
+          } else {
+            const remainingCount = userData.writeCount;
+
+            if (remainingCount > 0) {
+              console.log('Remaining Count', remainingCount);
+
+              await updateUserData(authUser.uid, {
+                writeCount: remainingCount - 1,
+                lastUpdated: Date.now(),
+              });
+
+              await writeData(data, container);
+              setTimeout(() => {
+                removeLoading(loading);
+                setTimeout(() => {
+                  window.location.reload();
+                }, 1000);
+              }, 3000);
+            } else {
+              console.log('No remaining count');
+              const lastUpdated = userData.lastUpdated;
+              console.log(lastUpdated, currentTime);
+              const timePassed = currentTime - lastUpdated;
+              console.log(timePassed);
+
+              if (timePassed >= 120000) {
+                await updateUserData(authUser.uid, {
+                  writeCount: 2,
+                  lastUpdated: currentTime,
+                });
+
+                await writeData(data, container);
+                setTimeout(() => {
+                  removeLoading(loading);
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 1000);
+                }, 3000);
+              } else {
+                removeLoading(loading);
+                console.log('message');
+                showMessage('Exceeded Limit', 'error');
+                return;
+              }
+            }
+          }
+        }
+      });
+    } else {
+      await writeData(data, container);
+      setTimeout(() => {
+        removeLoading(loading);
         window.location.href = 'dashboard.html';
-      } else {
-        window.location.reload();
-      }
-    }, 3000);
+      }, 3000);
+    }
   }
 });
 
