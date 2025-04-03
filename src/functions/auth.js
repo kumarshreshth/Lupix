@@ -1,4 +1,7 @@
-import { signInAnonymously } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js';
+import {
+  signInAnonymously,
+  signOut,
+} from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js';
 import { auth, db } from './config.js';
 import {
   ref,
@@ -18,7 +21,7 @@ export async function newAuthUser() {
 
     console.log('New User ', userObject.uid);
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 }
 
@@ -26,6 +29,6 @@ export async function logOut() {
   try {
     await signOut(auth);
   } catch (error) {
-    console.log('Error occured ', error);
+    throw error;
   }
 }

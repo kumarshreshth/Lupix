@@ -6,7 +6,7 @@ import {
 
 import { auth } from '../functions/config.js';
 
-import { showMessage } from '../functions/message.js';
+import { LoginMessage } from '../functions/message.js';
 
 function loginUser(username, password) {
   setPersistence(auth, browserSessionPersistence)
@@ -17,7 +17,7 @@ function loginUser(username, password) {
       window.location.href = 'dashboard.html';
     })
     .catch((error) => {
-      showMessage('Wrong username or password');
+      LoginMessage('Wrong username or password');
     });
 }
 

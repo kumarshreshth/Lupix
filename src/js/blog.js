@@ -40,10 +40,14 @@ if (user == 'admin') {
   });
 
   document.getElementById('logoutBtn').addEventListener('click', async () => {
-    await logOut();
-    setTimeout(() => {
-      window.location.href = 'login.html';
-    }, 3000);
+    try {
+      await logOut();
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 3000);
+    } catch (error) {
+      console.log(error);
+    }
   });
 } else {
   if (user == 'guest') {
@@ -60,7 +64,12 @@ if (user == 'admin') {
 }
 
 if (urlParams.has('update')) {
-  await readData(blogId, container);
+  try {
+    await readData(blogId, container);
+  } catch (error) {
+    console.log(error);
+    throw new Error('Error');
+  }
 }
 
 function checkLength() {
@@ -103,23 +112,38 @@ document.getElementById('form').addEventListener('submit', async (event) => {
     const loaded = loadingMessage('Updating');
     if (container == 'blogs') {
       // Update data if the container is 'blogs'
-      await updateData(blogId, data, 'blogs');
-      setTimeout(() => {
-        removeLoading(loaded);
+      try {
+        await updateData(blogId, data, 'blogs');
         setTimeout(() => {
-          window.location.href = 'dashboard.html';
-        }, 1000);
-      }, 3000);
+          removeLoading(loaded);
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 1000);
+        }, 3000);
+      } catch (error) {
+        console.log(error);
+        throw new Error('Error');
+      }
     } else {
       // If the container is not 'blogs', remove log and write data
-      removeLog('requested', blogId);
-      await writeData(data, 'blogs');
-      setTimeout(() => {
-        removeLoading(loaded);
+      try {
+        await removeLog('requested', blogId);
+      } catch (error) {
+        console.log(error);
+        throw new Error('Error');
+      }
+      try {
+        await writeData(data, 'blogs');
         setTimeout(() => {
-          window.location.href = 'dashboard.html';
-        }, 1000);
-      }, 3000);
+          removeLoading(loaded);
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 1000);
+        }, 3000);
+      } catch (error) {
+        console.log(error);
+        throw new Error('Error');
+      }
     }
   } else {
     let loading;
@@ -133,69 +157,109 @@ document.getElementById('form').addEventListener('submit', async (event) => {
       onAuthStateChanged(auth, async (authUser) => {
         console.log(authUser);
         if (!authUser) {
-          await newAuthUser();
+          try {
+            await newAuthUser();
+          } catch (error) {
+            console.log(error);
+            throw new Error('Error');
+          }
         } else {
           console.log('Existing user', authUser.uid);
 
           const currentTime = Date.now();
-          const userData = await readUserData(authUser.uid);
+          try {
+            const userData = await readUserData(authUser.uid);
 
-          if (userData == null) {
-            await newAuthUser();
-          } else {
-            const remainingCount = userData.writeCount;
-
-            if (remainingCount > 0) {
-              console.log('Remaining Count', remainingCount);
-
-              await updateUserData(authUser.uid, {
-                writeCount: remainingCount - 1,
-                lastUpdated: Date.now(),
-              });
-
-              await writeData(data, container);
-              setTimeout(() => {
-                removeLoading(loading);
-                setTimeout(() => {
-                  window.location.reload();
-                }, 1000);
-              }, 3000);
+            if (userData == null) {
+              try {
+                await newAuthUser();
+              } catch (error) {
+                console.log(error);
+                throw new Error('Error');
+              }
             } else {
-              console.log('No remaining count');
-              const lastUpdated = userData.lastUpdated;
-              console.log(lastUpdated, currentTime);
-              const timePassed = currentTime - lastUpdated;
-              console.log(timePassed);
+              const remainingCount = userData.writeCount;
 
-              if (timePassed >= 120000) {
-                await updateUserData(authUser.uid, {
-                  writeCount: 2,
-                  lastUpdated: currentTime,
-                });
+              if (remainingCount > 0) {
+                console.log('Remaining Count', remainingCount);
 
-                await writeData(data, container);
-                setTimeout(() => {
-                  removeLoading(loading);
+                try {
+                  await updateUserData(authUser.uid, {
+                    writeCount: remainingCount - 1,
+                    lastUpdated: Date.now(),
+                  });
+                } catch (error) {
+                  console.log(error);
+                  throw new Error('Error');
+                }
+
+                try {
+                  await writeData(data, container);
                   setTimeout(() => {
-                    window.location.reload();
-                  }, 1000);
-                }, 3000);
+                    removeLoading(loading);
+                    setTimeout(() => {
+                      window.location.reload();
+                    }, 1000);
+                  }, 3000);
+                } catch (error) {
+                  console.log(error);
+                  throw new Error('Error');
+                }
               } else {
-                removeLoading(loading);
-                console.log('message');
-                showMessage('Exceeded Limit', 'error');
-                return;
+                console.log('No remaining count');
+                const lastUpdated = userData.lastUpdated;
+                console.log(lastUpdated, currentTime);
+                const timePassed = currentTime - lastUpdated;
+                console.log(timePassed);
+
+                if (timePassed >= 120000) {
+                  try {
+                    await updateUserData(authUser.uid, {
+                      writeCount: 2,
+                      lastUpdated: currentTime,
+                    });
+                  } catch (error) {
+                    console.log(error);
+                    throw new Error('Error');
+                  }
+
+                  try {
+                    await writeData(data, container);
+                    setTimeout(() => {
+                      removeLoading(loading);
+                      setTimeout(() => {
+                        window.location.reload();
+                      }, 1000);
+                    }, 3000);
+                  } catch (error) {
+                    console.log(error);
+                    throw new Error('Error');
+                  }
+                } else {
+                  removeLoading(loading);
+                  console.log('message');
+                  showMessage('Exceeded Limit', 'error');
+                  return;
+                }
               }
             }
+          } catch (error) {
+            console.log(error);
+            throw new Error('Error');
           }
         }
       });
     } else {
-      await writeData(data, container);
-      setTimeout(() => {
-        removeLoading(loading);
-        window.location.href = 'dashboard.html';
-      }, 3000);
+      try {
+        await writeData(data, container);
+        setTimeout(() => {
+          removeLoading(loading);
+          window.location.href = 'dashboard.html';
+        }, 3000);
+      } catch (error) {
+        console.log(error);
+        throw new Error('Error');
+      }
     }
   }
 });

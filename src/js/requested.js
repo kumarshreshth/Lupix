@@ -13,10 +13,15 @@ onAuthStateChanged(auth, (user) => {
 
 document.querySelectorAll('.logoutBtn').forEach((btn) => {
   btn.addEventListener('click', async () => {
-    await logOut();
-    setTimeout(() => {
-      window.location.href = 'login.html';
-    }, 3000);
+    try {
+      await logOut();
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 3000);
+    } catch (error) {
+      console.log(error);
+      throw new Error('Error');
+    }
   });
 });
 
@@ -40,8 +45,13 @@ document.querySelectorAll('.requested').forEach((btn) => {
 
 window.onload = async () => {
   const loading = loadingMessage('Fetching');
-  const val = await fetchBlogs('requested', false);
-  if (val == true) {
-    removeLoading(loading);
+  try {
+    const val = await fetchBlogs('requested', false);
+    if (val == true) {
+      removeLoading(loading);
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error('Error');
   }
 };

@@ -19,7 +19,7 @@ export async function updateData(blogId, updatedData, container) {
       window.location.href = 'dashboard.html';
     }, 3000);
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 }
 
@@ -30,9 +30,8 @@ export async function writeData(data, container) {
       id: id,
       data: data,
     });
-    return { message: 'Data update', status: 'success' };
   } catch (error) {
-    return { message: 'Error occured', status: 'error' };
+    throw error;
   }
 }
 
@@ -53,7 +52,7 @@ export async function readData(blogId, container) {
       }
     });
   } catch (error) {
-    console.log('Error', error);
+    throw error;
   }
 }
 
@@ -61,7 +60,7 @@ export async function removeLog(container, blogId) {
   try {
     await remove(ref(db, `${container}/${blogId}`));
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 }
 
@@ -76,7 +75,7 @@ export async function readUserData(blogId) {
       return null;
     }
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 }
 
@@ -85,7 +84,7 @@ export async function updateUserData(blogId, data) {
   try {
     await update(userRef, data);
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 }
 
@@ -376,8 +375,7 @@ export async function fetchBlogs(container, page) {
     console.log('Data fetch');
     return true;
   } catch (error) {
-    console.log(error);
-    return true;
+    throw error;
   }
 }
 
@@ -414,7 +412,6 @@ export async function viewData(blogId, container) {
     });
     return true;
   } catch (error) {
-    console.log('Error', error);
-    return true;
+    throw error;
   }
 }

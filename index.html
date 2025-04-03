@@ -19,9 +19,23 @@
       href="./src/output.css"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap"
+      rel="stylesheet"
+    />
     <title>Lupix</title>
 
     <style>
+      .footer-font {
+        font-family: 'Archivo Black', sans-serif;
+      }
+
+      @media (min-width: 1280px) {
+        .footer-spacing {
+          letter-spacing: -30px;
+        }
+      }
+
       .words-box {
         height: 24px;
         margin: auto;
@@ -497,11 +511,8 @@
         class="text-center"
         id="services"
       >
-        <p class="text-[#D45D01] text-base sm:text-lg md:text-xl">
+        <p class="text-white text-xl sm:text-2xl md:text-4xl font-extrabold">
           OUR CAPABILITIES
-        </p>
-        <p class="text-white text-xl sm:text-2xl md:text-4xl mt-5 font-bold">
-          We can help you with...
         </p>
       </div>
 
@@ -511,9 +522,12 @@
         <div
           class="capabilites text-white h-[310px] lg:h-[415px] w-auto p-2 cursor-pointer transition-opacity duration-700 rounded-2xl lg:flex lg:justify-center lg:items-center bg-[#D45401] lg:bg-[#D45401]/50"
         >
-          <p class="mt-1 text-center text-base font-extrabold">
-            Brand Solutions
-          </p>
+          <div
+            class="mt-1 flex flex-row space-x-2 text-base justify-center items-center lg:flex-col lg:text-4xl font-extrabold"
+          >
+            <div>Brand</div>
+            <div>Solution</div>
+          </div>
           <div class="lg:hidden">
             <p class="mt-1 text-gray-200 text-xs xl:text-sm">
               Our Strategists, Designers and Video Editors provide holistic
@@ -552,9 +566,12 @@
         <div
           class="capabilites text-white h-[310px] lg:h-[415px] w-auto p-2 cursor-pointer transition-opacity duration-700 rounded-2xl lg:flex lg:justify-center lg:items-center bg-[#D45401] lg:bg-[#D45401]/50"
         >
-          <p class="mt-1 text-center text-base font-extrabold">
-            Tech Solutions
-          </p>
+          <div
+            class="mt-1 flex flex-row space-x-2 text-base justify-center items-center lg:flex-col lg:text-4xl font-extrabold"
+          >
+            <div>Tech</div>
+            <div>Solution</div>
+          </div>
           <div class="lg:hidden">
             <p class="mt-1 text-gray-200 text-xs xl:text-sm">
               Our Development Solutions leverage cutting-edge technology to
@@ -589,9 +606,12 @@
         <div
           class="capabilites text-white h-[310px] lg:h-[415px] w-auto p-2 cursor-pointer transition-opacity duration-700 rounded-2xl lg:flex lg:justify-center lg:items-center bg-[#D45401] lg:bg-[#D45401]/50"
         >
-          <p class="mt-1 text-center text-base font-extrabold">
-            Research and Ads Solution
-          </p>
+          <div
+            class="mt-1 flex flex-row space-x-2 text-base justify-center items-center lg:flex-col lg:text-4xl font-extrabold"
+          >
+            <div>Research</div>
+            <div>Solution</div>
+          </div>
           <div class="lg:hidden">
             <p class="mt-1 text-gray-200 text-xs xl:text-sm">
               We believe data-driven insights are the foundation of every
@@ -625,9 +645,12 @@
         <div
           class="capabilites text-white h-[310px] lg:h-[415px] w-auto p-2 cursor-pointer transition-opacity duration-700 rounded-2xl lg:flex lg:justify-center lg:items-center bg-[#D45401] lg:bg-[#D45401]/50"
         >
-          <p class="mt-1 text-center text-base font-extrabold">
-            Professional Shoot
-          </p>
+          <div
+            class="mt-1 flex flex-row space-x-2 text-base justify-center items-center lg:flex-col lg:text-4xl font-extrabold"
+          >
+            <div>Professional</div>
+            <div>Shoot</div>
+          </div>
           <div class="lg:hidden">
             <p class="mt-1 text-gray-200 text-xs xl:text-sm">
               We believe high-quality visuals are key to a strong brand
@@ -669,8 +692,10 @@
       id="blogBox"
     >
       <div class="space-y-8">
-        <p class="text-4xl font-bold text-white">BLOGS</p>
-        <p class="text-2xl text-gray-600">Latest Blogs</p>
+        <p class="text-xl sm:text-2xl md:text-4xl font-bold text-white">
+          BLOGS
+        </p>
+        <p class="text-lg sm:text-xl md:text-2xl text-gray-600">Latest Blogs</p>
       </div>
       <div
         class="text-center text-base sm:text-lg md:text-xl text-white"
@@ -692,6 +717,7 @@
         </button>
       </div>
     </div>
+
     <!--Bottom-->
     <div>
       <!--FAQ-->
@@ -848,20 +874,32 @@
         <div class="hidden lg:flex lg:h-[100vh]"></div>
         <div class="lg:sticky lg:bottom-0">
           <div class="flex justify-center">
-            <div class="m-4 w-[90%]">
+            <div class="m-4 w-full">
               <div
-                class="flex justify-center items-center"
+                class="flex justify-center items-center space-x-8"
                 id="show"
               >
                 <div class="cursor-pointer showContact">
-                  <div class="text-[80px] sm:text-[150px] md:text-[200px] lg:text-[260px] text-white font-bold">LUPIX</div>
+                  <div
+                    class="text-[100px] sm:text-[150px] lg:text-[200px] xl:text-[250px] 2xl:text-[320px] text-white footer-font footer-spacing"
+                  >
+                    LUPIX
+                  </div>
                 </div>
-                <div
-                  class="flex flex-col justify-center cursor-pointer sm:space-y-1 p-4 text-[#D45401] showContact"
-                >
-                  <div class="text-base sm:text-xl md:text-2xl lg:text-5xl">DIGITAL</div>
-                  <div class="text-base sm:text-xl md:text-2xl lg:text-5xl">MARKETING</div>
-                  <div class="text-base sm:text-xl md:text-2xl lg:text-5xl">AGENCY</div>
+                <div>
+                  <div
+                    class="hidden md:flex flex-col justify-center cursor-pointer space-y-4 text-[#D45401] showContact footer-font"
+                  >
+                    <div class="lg:text-3xl xl:text-5xl 2xl:text-7xl">
+                      DIGITAL
+                    </div>
+                    <div class="lg:text-3xl xl:text-5xl 2xl:text-7xl">
+                      MARKETING
+                    </div>
+                    <div class="lg:text-3xl xl:text-5xl 2xl:text-7xl">
+                      AGENCY
+                    </div>
+                  </div>
                 </div>
               </div>
               <div>

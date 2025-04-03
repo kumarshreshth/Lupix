@@ -6,9 +6,14 @@ const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.has('id')) {
   const blogId = urlParams.get('id');
   const container = urlParams.get('container');
-  const val = await viewData(blogId, container);
-  if (val == true) {
-    removeLoading(loading);
+  try {
+    const val = await viewData(blogId, container);
+    if (val == true) {
+      removeLoading(loading);
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error('Error');
   }
 }
 

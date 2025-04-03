@@ -177,22 +177,22 @@ document.querySelectorAll('.capabilites').forEach((block) => {
       'lg:flex',
       'lg:justify-center',
       'lg:items-center',
-      'bg-[#D45401]',
       'lg:bg-[#D45401]/50'
     );
-    block.classList.add('lg:bg-[#D45401]', 'lg:scale-105');
+    block.classList.add('lg:scale-105');
     block.children[1].classList.remove('lg:hidden');
+    block.children[0].classList.remove('lg:text-4xl', 'lg:flex-col');
   });
   block.addEventListener('mouseleave', () => {
-    block.classList.remove('lg:bg-[#D45401]', 'lg:scale-105');
+    block.classList.remove('lg:scale-105');
     block.classList.add(
       'lg:flex',
       'lg:justify-center',
       'lg:items-center',
-      'bg-[#D45401]',
       'lg:bg-[#D45401]/50'
     );
     block.children[1].classList.add('lg:hidden');
+    block.children[0].classList.add('lg:text-4xl', 'lg:flex-col');
   });
 });
 
@@ -256,16 +256,21 @@ window.addEventListener('scroll', () => {
 });
 
 window.onload = async function () {
-  const value = await fetchBlogs('blogs', true);
-  setTimeout(() => {
-    if (value === true) {
-      document.getElementById('loading').classList.add('hidden');
-      document.getElementById('blogs').classList.replace('hidden', 'grid');
-      document
-        .getElementById('blogBox')
-        .classList.replace('opacity-50', 'opacity-100');
-    }
-  }, 3000);
+  try {
+    const value = await fetchBlogs('blogs', true);
+    setTimeout(() => {
+      if (value === true) {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('blogs').classList.replace('hidden', 'grid');
+        document
+          .getElementById('blogBox')
+          .classList.replace('opacity-50', 'opacity-100');
+      }
+    }, 3000);
+  } catch (error) {
+    console.log(error);
+    throw new Error('Error');
+  }
 };
 
 document.getElementById('closePopupBtn').addEventListener('click', () => {
