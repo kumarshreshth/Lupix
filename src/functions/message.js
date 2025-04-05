@@ -1,4 +1,4 @@
-export function LoginMessage(message, status) {
+export function showMessage(message, status) {
   const messageBlock = document.createElement('div');
   messageBlock.classList.add(
     'fixed',
