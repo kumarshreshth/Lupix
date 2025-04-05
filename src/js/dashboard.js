@@ -67,11 +67,10 @@ window.onload = async () => {
   const loading = loadingMessage('Fetching');
   console.log('entered');
   try {
-    const val = await fetchBlogs('blogs', false);
-    if (val == true) {
-      removeLoading(loading);
-    }
+    await fetchBlogs('blogs', false);
+    removeLoading(loading);
   } catch (error) {
+    removeLoading(loading);
     console.log(error);
     errorMessage(error);
   }

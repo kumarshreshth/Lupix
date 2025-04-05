@@ -11,11 +11,10 @@ if (urlParams.has('id')) {
   const blogId = urlParams.get('id');
   const container = urlParams.get('container');
   try {
-    const val = await viewData(blogId, container);
-    if (val == true) {
-      removeLoading(loading);
-    }
+    await viewData(blogId, container);
+    removeLoading(loading);
   } catch (error) {
+    removeLoading(loading);
     errorMessage(error);
   }
 }

@@ -49,11 +49,10 @@ document.querySelectorAll('.requested').forEach((btn) => {
 window.onload = async () => {
   const loading = loadingMessage('Fetching');
   try {
-    const val = await fetchBlogs('requested', false);
-    if (val == true) {
-      removeLoading(loading);
-    }
+    await fetchBlogs('requested', false);
+    removeLoading(loading);
   } catch (error) {
+    removeLoading(loading);
     errorMessage(error);
   }
 };

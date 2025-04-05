@@ -1,5 +1,9 @@
 import { fetchBlogs } from './functions/database.js';
-import { errorMessage } from '../src/functions/message.js';
+import {
+  errorMessage,
+  loadingMessage,
+  removeLoading,
+} from '../src/functions/message.js';
 
 async function sendDoubt(query, emailId) {
   const templateParam = {
@@ -61,6 +65,7 @@ document
 
     try {
       const response = await sendMail(name, number, emailId, description);
+
       if (response == 'OK') {
         const messageBlock = document.createElement('div');
         messageBlock.classList.add(
@@ -76,7 +81,7 @@ document
           'opacity-80'
         );
         const messageElement = document.createElement('p');
-        messageElement.innerText = 'Booking Mail Send';
+        messageElement.innerText = 'Booking Mail Sent';
         messageElement.classList.add('text-green-400');
         messageBlock.appendChild(messageElement);
         document.body.appendChild(messageBlock);
@@ -117,11 +122,12 @@ document
   .getElementById('queryForm')
   .addEventListener('submit', async (event) => {
     event.preventDefault();
-
+    const loading = loadingMessage('Sending');
     const query = document.getElementById('query').value;
     const emailId = document.getElementById('queryEmail').value;
     try {
       const response = await sendDoubt(query, emailId);
+      removeLoading(loading);
       if (response === 'OK') {
         const messageBlock = document.createElement('div');
         messageBlock.classList.add(

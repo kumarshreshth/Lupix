@@ -373,7 +373,6 @@ export async function fetchBlogs(container, page) {
       console.log('No Data available');
     }
     console.log('Data fetch');
-    return true;
   } catch (error) {
     throw error;
   }
@@ -410,7 +409,6 @@ export async function viewData(blogId, container) {
         document.getElementById('blogPage').classList.remove('hidden');
       }
     });
-    return true;
   } catch (error) {
     throw error;
   }

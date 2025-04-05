@@ -121,6 +121,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
           }, 1000);
         }, 3000);
       } catch (error) {
+        removeLoading(loading);
         errorMessage(error);
       }
     } else {
@@ -139,6 +140,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
           }, 1000);
         }, 3000);
       } catch (error) {
+        removeLoading(loading);
         errorMessage(error);
       }
     }
@@ -163,11 +165,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
           console.log('Existing user', authUser.uid);
 
           const currentTime = Date.now();
-          try {
-            const userData = await readUserData(authUser.uid);
-          } catch (error) {
-            errorMessage(error);
-          }
+          const userData = await readUserData(authUser.uid);
 
           if (userData == null) {
             try {
@@ -199,6 +197,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
                   }, 1000);
                 }, 3000);
               } catch (error) {
+                removeLoading(loading);
                 errorMessage(error);
               }
             } else {
@@ -227,6 +226,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
                     }, 1000);
                   }, 3000);
                 } catch (error) {
+                  removeLoading(loading);
                   errorMessage(error);
                 }
               } else {
@@ -247,6 +247,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
           window.location.href = 'dashboard.html';
         }, 3000);
       } catch (error) {
+        removeLoading(loading);
         errorMessage(error);
       }
     }
