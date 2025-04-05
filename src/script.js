@@ -268,15 +268,13 @@ window.addEventListener('scroll', () => {
 
 window.onload = async function () {
   try {
-    const value = await fetchBlogs('blogs', true);
+    await fetchBlogs('blogs', true);
     setTimeout(() => {
-      if (value === true) {
-        document.getElementById('loading').classList.add('hidden');
-        document.getElementById('blogs').classList.replace('hidden', 'grid');
-        document
-          .getElementById('blogBox')
-          .classList.replace('opacity-50', 'opacity-100');
-      }
+      document.getElementById('loading').classList.add('hidden');
+      document.getElementById('blogs').classList.replace('hidden', 'grid');
+      document
+        .getElementById('blogBox')
+        .classList.replace('opacity-50', 'opacity-100');
     }, 3000);
   } catch (error) {
     console.log(error);
