@@ -464,9 +464,6 @@
   .w-\[90px\] {
     width: 90px;
   }
-  .w-\[95\%\] {
-    width: 95%;
-  }
   .w-\[98\%\] {
     width: 98%;
   }
@@ -1504,11 +1501,6 @@
       }
     }
   }
-  .lg\:bg-\[\#D45401\] {
-    @media (width >= 64rem) {
-      background-color: #D45401;
-    }
-  }
   .lg\:bg-\[\#D45401\]\/50 {
     @media (width >= 64rem) {
       background-color: color-mix(in oklab, #D45401 50%, transparent);
@@ -1529,6 +1521,16 @@
   .lg\:text-\[200px\] {
     @media (width >= 64rem) {
       font-size: 200px;
+    }
+  }
+  .lg\:text-gray-400 {
+    @media (width >= 64rem) {
+      color: var(--color-gray-400);
+    }
+  }
+  .lg\:text-gray-500 {
+    @media (width >= 64rem) {
+      color: var(--color-gray-500);
     }
   }
   .xl\:text-5xl {

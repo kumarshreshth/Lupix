@@ -188,11 +188,16 @@ document.querySelectorAll('.capabilites').forEach((block) => {
       'lg:flex',
       'lg:justify-center',
       'lg:items-center',
-      'lg:bg-[#D45401]/50'
+      'lg:bg-[#D45401]/50',
+      'lg:text-gray-500'
     );
     block.classList.add('lg:scale-105');
     block.children[1].classList.remove('lg:hidden');
-    block.children[0].classList.remove('lg:text-4xl', 'lg:flex-col');
+    block.children[0].classList.remove(
+      'lg:text-4xl',
+      'lg:flex-col',
+      'lg:text-gray-500'
+    );
   });
   block.addEventListener('mouseleave', () => {
     block.classList.remove('lg:scale-105');
@@ -203,7 +208,11 @@ document.querySelectorAll('.capabilites').forEach((block) => {
       'lg:bg-[#D45401]/50'
     );
     block.children[1].classList.add('lg:hidden');
-    block.children[0].classList.add('lg:text-4xl', 'lg:flex-col');
+    block.children[0].classList.add(
+      'lg:text-4xl',
+      'lg:flex-col',
+      'lg:text-gray-500'
+    );
   });
 });
 
