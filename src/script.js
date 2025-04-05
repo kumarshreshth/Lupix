@@ -58,6 +58,7 @@ document
   .addEventListener('submit', async (event) => {
     event.preventDefault();
 
+    const loading = loadingMessage('Sending');
     const name = document.getElementById('name').value;
     const number = document.getElementById('phoneNumber').value;
     const emailId = document.getElementById('emailId').value;
@@ -67,6 +68,7 @@ document
       const response = await sendMail(name, number, emailId, description);
 
       if (response == 'OK') {
+        removeLoading(loading);
         const messageBlock = document.createElement('div');
         messageBlock.classList.add(
           'fixed',
@@ -94,6 +96,7 @@ document
         }, 3000);
       }
     } catch (error) {
+      removeLoading(loading);
       const messageBlock = document.createElement('div');
       messageBlock.classList.add(
         'fixed',
@@ -154,6 +157,7 @@ document
         }, 3000);
       }
     } catch (error) {
+      removeLoading(loading);
       const messageBlock = document.createElement('div');
       messageBlock.classList.add(
         'fixed',
