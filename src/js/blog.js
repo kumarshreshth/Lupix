@@ -154,7 +154,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
 
     if (user == 'guest') {
       onAuthStateChanged(auth, async (authUser) => {
-        console.log(authUser);
+        //console.log(authUser);
         if (!authUser) {
           try {
             await newAuthUser();
@@ -162,7 +162,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
             errorMessage(error);
           }
         } else {
-          console.log('Existing user', authUser.uid);
+         // console.log('Existing user', authUser.uid);
 
           const currentTime = Date.now();
           const userData = await readUserData(authUser.uid);
@@ -177,7 +177,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
             const remainingCount = userData.writeCount;
 
             if (remainingCount > 0) {
-              console.log('Remaining Count', remainingCount);
+              //console.log('Remaining Count', remainingCount);
 
               try {
                 await updateUserData(authUser.uid, {
@@ -201,11 +201,11 @@ document.getElementById('form').addEventListener('submit', async (event) => {
                 errorMessage(error);
               }
             } else {
-              console.log('No remaining count');
+              //console.log('No remaining count');
               const lastUpdated = userData.lastUpdated;
-              console.log(lastUpdated, currentTime);
+              //console.log(lastUpdated, currentTime);
               const timePassed = currentTime - lastUpdated;
-              console.log(timePassed);
+              //console.log(timePassed);
 
               if (timePassed >= 120000) {
                 try {
@@ -231,7 +231,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
                 }
               } else {
                 removeLoading(loading);
-                console.log('message');
+                //console.log('message');
                 showMessage('Exceeded Limit', 'error');
                 return;
               }

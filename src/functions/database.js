@@ -244,7 +244,7 @@ export async function fetchBlogs(container, page) {
           document.getElementById('blogs').appendChild(blogComponent);
         });
       } else {
-        console.log('entered');
+        //console.log('entered');
         blogDataList.forEach((blogObject) => {
           const data = blogObject.data;
 
@@ -370,9 +370,9 @@ export async function fetchBlogs(container, page) {
         });
       }
     } else {
-      console.log('No Data available');
+      //console.log('No Data available');
     }
-    console.log('Data fetch');
+    //console.log('Data fetch');
   } catch (error) {
     throw error;
   }

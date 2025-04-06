@@ -19,7 +19,7 @@ export async function newAuthUser() {
       lastUpdated: Date.now(),
     });
 
-    console.log('New User ', userObject.uid);
+    //console.log('New User ', userObject.uid);
   } catch (error) {
     throw error;
   }

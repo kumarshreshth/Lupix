@@ -65,13 +65,13 @@ window.addEventListener('scroll', () => {
 
 window.onload = async () => {
   const loading = loadingMessage('Fetching');
-  console.log('entered');
+  //console.log('entered');
   try {
     await fetchBlogs('blogs', false);
     removeLoading(loading);
   } catch (error) {
     removeLoading(loading);
-    console.log(error);
+    //console.log(error);
     errorMessage(error);
   }
 };
